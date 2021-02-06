@@ -5,20 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import allReducers from './redux/reducers';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
-// theme
+import Theme from './theme/Theme.jsx';
 
 const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <Provider store={store}>
-    
-    <React.StrictMode>
-      <BrowserRouter>
+    <Theme>
+      <React.StrictMode>
         <App />
-      </BrowserRouter>
-    </React.StrictMode>
-    
+      </React.StrictMode>
+    </Theme>
   </Provider>,
   document.getElementById('root')
 );
