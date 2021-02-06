@@ -8,3 +8,5 @@ const isLoggedIn_reducer = (state = false, action) => {
             return state;
     };
 };
+
+export default isLoggedIn_reducer;
