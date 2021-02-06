@@ -64,9 +64,9 @@ const theme = {
     },
 
     font: {
-        header: "",
-        body: "",
-        splash: "",
+        header: headerFamily,
+        body: bodyFamily,
+        splash: splashFamily,
     },
 
     max: {
