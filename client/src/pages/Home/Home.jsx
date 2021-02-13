@@ -1,9 +1,10 @@
-import React from 'react'
+import * as S from '../../theme';
+import Header from '../../components/Header/Header.jsx';
 
 export default function Home() {
     return (
-        <div>
-            <h1>Landing Page</h1>
-        </div>
+        <S.Root>
+            <Header title="Home Page" />
+        </S.Root>
     )
 }

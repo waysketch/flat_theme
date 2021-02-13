@@ -1,9 +1,9 @@
-import styled from `styled-components`;
+import styled from 'styled-components';
 
 // ============== //
 //   COMPONENTS   //
 // ============== //
-export const Root = styled.div`
+export const Root = styled.section`
     font-family: ${props => props.theme.font.body};
     width: 100vw;
     height: 100vh;
@@ -22,5 +22,6 @@ export const Root = styled.div`
 `;
 
 export const Frame = styled.div`
-
+    max-width: ${props => props.theme.max.width};
+    margin: auto;
 `;

@@ -1,7 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import styled from 'styled-components';
 import './reset.css';
-// import { darkMode } from '../redux/reducer';
 
 // FILL FROM DATABASE //
 let darkMode = true;
@@ -9,8 +8,8 @@ let darkMode = true;
 // ========= //
 //   FONTS   //
 // ========= //
-const headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
-const bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
+let headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
+let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
 
 const headerFamily = "Roboto Slab, serif";
 const bodyFamily = "Open Sans, sans-serif";
@@ -75,10 +74,10 @@ const theme = {
     },
 };
 
-// ======== //
-//   WRAP   //
-// ======== //
-const StyledRoot = styled.main`
+// ========= //
+//   RESET   //
+// ========= //
+const StyledRoot = styled.div`
     @import url(${props => props.foo});
     @import url(${props => props.bar});
 `;

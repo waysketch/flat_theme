@@ -1,9 +1,12 @@
-import React from 'react';
+import * as S from '../../theme';
+import Header from '../../components/Header/Header.jsx';
 
 export default function Login() {
     return (
-        <div>
-            <h1>Login Page</h1>
-        </div>
+        <S.Root>
+            <S.Frame>
+                <Header title="Login Page" />
+            </S.Frame>
+        </S.Root>
     )
 }
