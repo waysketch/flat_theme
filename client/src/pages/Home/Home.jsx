@@ -1,10 +1,10 @@
-import * as S from '../../theme';
+import { Fragment } from 'react';
 import Header from '../../components/Header/Header.jsx';
 
 export default function Home() {
     return (
-        <S.Root>
+        <Fragment>
             <Header title="Home Page" />
-        </S.Root>
+        </Fragment>
     )
 }

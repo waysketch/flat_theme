@@ -11,15 +11,15 @@ let darkMode = true;
 let headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
 let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
 
-const headerFamily = "Roboto Slab, serif";
-const bodyFamily = "Open Sans, sans-serif";
+const headerFamily = "Open Sans, sans-serif";
+const bodyFamily = "Roboto Slab, serif";
 const splashFamily = "Roboto Slab, serif";
 
 // ========== //
 //   COLORS   //
 // ========== //
 const palette = {
-    black:"#000",
+    black: "#000",
     dark: "#2d3436",
     grey: "#596275",
     white: "#fff",
@@ -77,20 +77,43 @@ const theme = {
 // ========= //
 //   RESET   //
 // ========= //
-const StyledRoot = styled.div`
+const Reset = styled.main`
     @import url(${props => props.foo});
     @import url(${props => props.bar});
+
+    font-family: ${props => props.textFontFamily};
+    width: 100vw;
+    height: 100vh;
+    color: ${props => props.fontColor};
+    background-color: ${props => props.backgroundColor};
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 900;
+        font-family: ${props => props.headerFontFamily};
+    }
 `;
 
 // ============= //
 //   THEME JSX   //
 // ============= //
-const Theme = ({children}) => (
-    <StyledRoot foo={headerUrl} bar={bodyUrl}>
+const Theme = ({ children }) => (
+    <Reset
+        foo={headerUrl}
+        bar={bodyUrl}
+        textFontFamily={bodyFamily}
+        headerFontFamily={headerFamily}
+        fontColor={theme.color.font}
+        backgroundColor={theme.color.background}
+    >
         <ThemeProvider theme={theme}>
             {children}
         </ThemeProvider>
-    </StyledRoot>
+    </Reset>
 );
 
 export default Theme;

@@ -6,18 +6,18 @@ import Error from './pages/Error/Error.jsx';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        {/* HOME PAGE */}
-        <Route exact path="/" render={() => <Home />} />
+      <BrowserRouter>
+        <Switch>
+          {/* HOME PAGE */}
+          <Route exact path="/" render={() => <Home />} />
 
-        {/* LOGIN PAGE */}
-        <Route exact path="/login" render={() => <Login />} />
+          {/* LOGIN PAGE */}
+          <Route exact path="/login" render={() => <Login />} />
 
-        {/* DO NOT CODE BELOW THIS LINE */}
-        <Route render={() => <Error />} />
-      </Switch>
-    </BrowserRouter>
+          {/* DO NOT CODE BELOW THIS LINE */}
+          <Route render={() => <Error />} />
+        </Switch>
+      </BrowserRouter>
   );
 }
 
