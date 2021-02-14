@@ -1,77 +1,103 @@
-import { ThemeProvider } from "styled-components";
+import { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import './reset.css';
 
-// FILL FROM DATABASE //
-let darkMode = true;
+// ============= //
+//   THEME JSX   //
+// ============= //
+export default function Theme({ children }) {
 
-// ========= //
-//   FONTS   //
-// ========= //
-let headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
-let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
+    // FILL FROM DATABASE //
+    const [darkMode] = useState(useSelector(state => state.darkMode));
 
-const headerFamily = "Open Sans, sans-serif";
-const bodyFamily = "Roboto Slab, serif";
-const splashFamily = "Roboto Slab, serif";
+    // ========= //
+    //   FONTS   //
+    // ========= //
+    let headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
+    let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
 
-// ========== //
-//   COLORS   //
-// ========== //
-const palette = {
-    black: "#000",
-    dark: "#2d3436",
-    grey: "#596275",
-    white: "#fff",
-    light: "#dfe6e9",
-    blue: "#3498db",
-    darkBlue: "#2980b9",
-    green: "#2ecc71",
-    darkGreen: "#27ae60",
-    red: "#e74c3c",
-    darkRed: "#c0392b",
-    orange: "#f39c12",
-    yellow: "#f6e58d",
-    darkYellow: "#f6e58d",
-    gold: "#ccae62",
+    const headerFamily = "Open Sans, sans-serif";
+    const bodyFamily = "Roboto Slab, serif";
+    const splashFamily = "Roboto Slab, serif";
 
-    // rad colors
-    fogDog: "#f06d06",
-}
+    // ========== //
+    //   COLORS   //
+    // ========== //
+    const palette = {
+        black: "#000",
+        dark: "#2d3436",
+        grey: "#596275",
+        white: "#fff",
+        light: "#dfe6e9",
+        blue: "#3498db",
+        darkBlue: "#2980b9",
+        green: "#2ecc71",
+        darkGreen: "#27ae60",
+        red: "#e74c3c",
+        darkRed: "#c0392b",
+        orange: "#f39c12",
+        yellow: "#f6e58d",
+        darkYellow: "#f6e58d",
+        gold: "#ccae62",
 
-// ================ //
-//   THEME OBJECT   //
-// ================ //
-const theme = {
+        // rad colors
+        fogDog: "#f06d06",
+    }
 
-    color: {
-        font: darkMode ? palette.light : palette.dark,
-        background: darkMode ? palette.dark : palette.light,
+    // ================ //
+    //   THEME OBJECT   //
+    // ================ //
+    const theme = {
 
-        primary: darkMode ? palette.dark : palette.light,
-        primary_off: darkMode ? palette.grey : palette.fogDog,
+        color: {
+            font: darkMode ? palette.light : palette.dark,
+            background: darkMode ? palette.dark : palette.light,
 
-        secondary: darkMode ? palette.gold : palette.red,
-        secondary_off: darkMode ? palette.light : palette.dark,
+            primary: darkMode ? palette.dark : palette.light,
+            primary_off: darkMode ? palette.grey : palette.fogDog,
 
-        splash: palette.gold,
-    },
+            secondary: darkMode ? palette.gold : palette.red,
+            secondary_off: darkMode ? palette.light : palette.dark,
 
-    breakpoint: {
-        mobile: "767px",
-        tablet: "768px",
-        desktop: "1040px",
-    },
+            splash: palette.gold,
+        },
 
-    font: {
-        header: headerFamily,
-        body: bodyFamily,
-        splash: splashFamily,
-    },
+        breakpoint: {
+            mobile: "767px",
+            tablet: "768px",
+            desktop: "1040px",
+        },
 
-    max: {
-        width: "1200px",
-    },
+        font: {
+            header: headerFamily,
+            body: bodyFamily,
+            splash: splashFamily,
+        },
+
+        max: {
+            width: "1200px",
+        },
+    };
+
+    // ============== //
+    // === RETURN === //
+    // ============== //
+    return (
+        <Reset
+            foo={headerUrl}
+            bar={bodyUrl}
+            textFontFamily={bodyFamily}
+            headerFontFamily={headerFamily}
+            fontColor={theme.color.font}
+            backgroundColor={theme.color.background}
+        >
+            <ThemeProvider theme={theme}>
+                {children}
+            </ThemeProvider>
+        </Reset>
+    )
 };
 
 // ========= //
@@ -97,23 +123,3 @@ const Reset = styled.main`
         font-family: ${props => props.headerFontFamily};
     }
 `;
-
-// ============= //
-//   THEME JSX   //
-// ============= //
-const Theme = ({ children }) => (
-    <Reset
-        foo={headerUrl}
-        bar={bodyUrl}
-        textFontFamily={bodyFamily}
-        headerFontFamily={headerFamily}
-        fontColor={theme.color.font}
-        backgroundColor={theme.color.background}
-    >
-        <ThemeProvider theme={theme}>
-            {children}
-        </ThemeProvider>
-    </Reset>
-);
-
-export default Theme;
