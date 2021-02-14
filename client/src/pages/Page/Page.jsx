@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import Header from '../../components/Header/Header.jsx';
-import Footer from "../../components/Footer/Footer";
+import loadable from '@loadable/component';
 
 // TODO: Add code splitting to this to reduce load size
 // EDGECASE: Order matters push and pop only
@@ -18,9 +17,11 @@ export default function Page(props) {
 
             switch (component.name) {
                 case "Header":
+                    const Header = loadable(() => import('../../components/Header/Header.jsx'));
                     renderThese.push(<Header key={component.name + index} title={props.title} />);
                     break;
                 case "Footer":
+                    const Footer = loadable(() => import('../../components/Footer/Footer'));
                     renderThese.push(<Footer key={component.name + index} />);
                     break;
                 default:
@@ -31,7 +32,7 @@ export default function Page(props) {
 
         updateSections(renderThese);
 
-    }, []);
+    }, [props.components, props.title]);
 
     return (
         <Fragment>
