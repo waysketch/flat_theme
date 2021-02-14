@@ -1,9 +1,11 @@
-import React from 'react'
+import * as S from '../../theme';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
-        <div>
+        <S.Footer>
             Footer
-        </div>
+            <Link to="/about">About Page</Link>
+        </S.Footer>
     )
 }

@@ -94,6 +94,7 @@ export default function Theme({ children }) {
             headerFontFamily={headerFamily}
             fontColor={theme.color.font}
             backgroundColor={theme.color.background}
+            splashColor={theme.color.splash}
         >
             <ThemeProvider theme={theme}>
                 {children}
@@ -123,5 +124,9 @@ const Reset = styled.main`
     h6 {
         font-weight: 900;
         font-family: ${props => props.headerFontFamily};
+    }
+
+    a {
+        color: ${props => props.splashColor};
     }
 `;

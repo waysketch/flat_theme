@@ -1,9 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import loadable from '@loadable/component';
 
-// TODO: Add code splitting to this to reduce load size
-// EDGECASE: Order matters push and pop only
-
 export default function Page(props) {
     // === HOOKS === //
     const [sections, updateSections] = useState([]);

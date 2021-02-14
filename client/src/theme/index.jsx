@@ -18,3 +18,7 @@ export const Loading = styled.div`
     background-color: #2d3436;
     z-index: 9000;
 `;
+
+export const Footer = styled.footer`
+    z-index: 1;
+`;
