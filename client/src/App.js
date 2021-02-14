@@ -1,11 +1,32 @@
-import React from "react";
-import {Route, Switch, BrowserRouter} from "react-router-dom";
+import React, { Fragment, useEffect, useState } from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Home from './pages/Home/Home.jsx';
 import Login from './pages/Login/Login.jsx';
 import Error from './pages/Error/Error.jsx';
+import { Loading } from './theme';
 
-function App() {
+export default function App() {
+  // ============= //
+  // === HOOKS === //
+  // ============= //
+  const [loading, updateLoading] = useState(true);
+
+  // =============== //
+  // === ON LOAD === //
+  // =============== //
+  useEffect(() => {
+    updateLoading(false);
+  }, []);
+
+  // ============== //
+  // === RETURN === //
+  // ============== //
   return (
+    <Fragment>
+      { /* LOADING */ }
+      {loading ? <Loading /> : ""}
+
+      { /* SITE */ }
       <BrowserRouter>
         <Switch>
           {/* HOME PAGE */}
@@ -18,7 +39,6 @@ function App() {
           <Route render={() => <Error />} />
         </Switch>
       </BrowserRouter>
+    </Fragment>
   );
-}
-
-export default App;
+};

@@ -1,6 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// ============== //
+// === SCHEMA === //
+// ============== //
 const testSchema = new Schema({
     //_id: this is made by mongoose for us. DO NOT ADD A CUSTOM ID
     data: { type: String, required: true }, // must be a string "" or RegEx
@@ -10,4 +13,9 @@ const testSchema = new Schema({
     date: { type: Date, default: Date.now } // must be a Date object
 });
 
+// ============== //
+// === EXPORT === //
+// ============== //
 const Test = mongoose.model("Test", testSchema);
+
+module.exports = Test;

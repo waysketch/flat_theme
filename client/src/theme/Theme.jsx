@@ -51,6 +51,8 @@ export default function Theme({ children }) {
     // ================ //
     const theme = {
 
+        palette: palette,
+
         color: {
             font: darkMode ? palette.light : palette.dark,
             background: darkMode ? palette.dark : palette.light,

@@ -1,6 +1,6 @@
 // === STATE for theme behaviors === //
 
-const darkMode_reducer = (state = false, action) => {
+const darkMode_reducer = (state = true, action) => {
     switch(action.type) {
         case 'TOGGLE':
             return action.payload;
