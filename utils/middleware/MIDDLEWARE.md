@@ -7,6 +7,8 @@ An email service is required to send automated password reset emails and CCPA re
 ## Nodemailer
 `npm install --save nodemailer`
 
+[nodemailer docs](https://nodemailer.com/about/);
+
 This package is able to send emails from the node server to users. See the `root > utils > middleware > email templates` for more info.
 
 Emails include:
