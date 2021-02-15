@@ -22,3 +22,7 @@ export const Loading = styled.div`
 export const Footer = styled.footer`
     z-index: 1;
 `;
+
+export const NoDatabase = styled.div`
+    z-index: 1;
+`;
