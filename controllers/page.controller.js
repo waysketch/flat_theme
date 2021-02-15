@@ -1,20 +1,63 @@
 const router = require("express").Router();
+const _db = require("../models").Page;
+
+if (process.env.NODE_EV !== "production") {
+    require('dotenv').config();
+}
 
 // ================= //
 // === GET PAGES === //
 // ================= //
-router.route("/").get(function (req, res) {
-    res.json(fakeDataFromDB);
+
+router.route("/").get((req, res) => {
+    _db
+        .find({})
+        .then( dbModel => {
+            res.json(dbModel);
+        })
+        .catch( _ => {
+            res.json({
+                msg: "Oops! Something has gone wrong."
+            })
+        })
+});
+
+// =================== //
+// === CREATE PAGE === //
+// =================== //
+
+router.route("/create").post((req, res) => {
+    _db
+        .create(req.body)
+        .then(dbModel => {
+            res.json(dbModel);
+        })
+        .catch(error => {
+            res.status(422).json(error);
+        });
+});
+
+// ================== //
+// === DELETE ALL === //
+// ================== //
+router.route("/nuke").post((req, res) => {
+    // === MALL COP === //
+    console.log(req.body);
+    if (process.env.APP_SECRET !== req.body.password) { return res.send('Nice try hacker'); };
+
+    // === DROP IT === //
+    _db
+    .remove()
+    .then( _ => {
+        res.send('done');
+    });
 });
 
 module.exports = router;
 
-
-// fake data
-// TODO: Model for Pages
+// Fake Data example
 const fakeDataFromDB = [
     {
-        id: "p2021HP",
         name: "Home",
         route: "/",
         nav: ["header"],

@@ -29,7 +29,6 @@ export default function App() {
       })
       .finally( () => {
         // === remove page loading === //
-        console.log('ready');
         updateLoading(false);
       })
   }, []);
