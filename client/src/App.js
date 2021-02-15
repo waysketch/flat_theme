@@ -2,68 +2,9 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Page from './pages/Page/Page.jsx';
 import Error from './pages/Error/Error.jsx';
+import NoDatabase from './pages/NoDatabase/NoDatabase';
 import { Loading } from './theme';
-
-// TODO: Model for Pages
-const fakeDataFromDB = [
-  {
-    id: "p2021HP",
-    name: "Home",
-    route: "/",
-    nav: {
-      title: "Home",
-      inNav: true, // default is false
-    },
-    components: [
-      {
-        name: "Header",
-        data: {
-          title: "Home Page"
-        }
-      },
-      {
-        name: "Footer",
-        data: {
-          empty: true
-        }
-      }
-    ]
-  },
-  {
-    id: "p2021HP",
-    name: "About",
-    route: "/about",
-    nav: {
-      title: "Our Story",
-      inNav: true,
-      inFooter: true
-    },
-    components: [
-      {
-        name: "Header",
-        data: {
-          title: "Our Story"
-        }
-      }
-    ]
-  },
-  {
-    id: "p2021HP",
-    name: "Privacy Policy",
-    route: "/privacy",
-    nav: {
-      title: "Privacey Policy"
-    },
-    components: [
-      {
-        name: "Header",
-        data: {
-          title: "Privacey Policy"
-        }
-      }
-    ]
-  }
-]
+import axios from 'axios';
 
 export default function App() {
   // ============= //
@@ -76,8 +17,21 @@ export default function App() {
   // === ON LOAD === //
   // =============== //
   useEffect(() => {
-    updatePages(fakeDataFromDB); // load the fake data
-    updateLoading(false);
+    // === GET PAGES === //
+    axios.get('/api/pages')
+      .then( pageArray => {
+        // === 200 === //
+        updatePages(pageArray.data);
+      })
+      .catch( _ => {
+        // === NOT 200 === //
+        console.log('Unable to get pages from server in [App.js].');
+      })
+      .finally( () => {
+        // === remove page loading === //
+        console.log('ready');
+        updateLoading(false);
+      })
   }, []);
 
   // ============== //
@@ -85,17 +39,17 @@ export default function App() {
   // ============== //
   return (
     <Fragment>
-      { /* LOADING */ }
+      { /* LOADING */}
       {loading ? <Loading /> : ""}
 
-      { /* SITE */ }
+      { /* SITE */}
       <BrowserRouter>
         <Switch>
-
           {/* LOAD PAGES */}
-          {pages.map((page) => {
-            return <Route key={page.id} exact path={page.route} render={() => <Page key={page.id} components={page.components} />} />
-          })}
+          { pages.length > 0 
+          ? pages.map( page => {
+            return <Route key={page.id} exact path={page.route} render={() => <Page key={page.id} components={page.components} /> } />
+          }) : <Route exact path="/" render={() => <NoDatabase />} /> }
 
           {/* DO NOT CODE BELOW THIS LINE */}
           <Route render={() => <Error />} />
