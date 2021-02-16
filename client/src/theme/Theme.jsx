@@ -15,12 +15,12 @@ export default function Theme({ children }) {
     // ========= //
     //   FONTS   //
     // ========= //
-    let headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
+    let headerUrl = 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;400;900&display=swap';
     let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
 
     const headerFamily = "Open Sans, sans-serif";
-    const bodyFamily = "Roboto Slab, serif";
-    const splashFamily = "Roboto Slab, serif";
+    const bodyFamily = "'Roboto Slab', serif";
+    const splashFamily = "'Roboto Slab', serif";
 
     // ========== //
     //   COLORS   //
@@ -107,9 +107,6 @@ export default function Theme({ children }) {
 //   RESET   //
 // ========= //
 const Reset = styled.main`
-    @import url(${props => props.foo});
-    @import url(${props => props.bar});
-
     font-family: ${props => props.textFontFamily};
     width: 100vw;
     height: 100vh;

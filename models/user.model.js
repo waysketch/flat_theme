@@ -6,8 +6,8 @@ const bcrypt = require('bcryptjs');
 // === SCHEMA === //
 // ============== //
 const userSchema = new Schema({
-	firstName: { type: String, required: true },
-	lastName: { type: String, required: true },
+	firstName: { type: String, required: false },
+	lastName: { type: String, required: false },
 	email: { type: String, required: true }, // We will use this as the username
 	local: {
 		username: { type: String, unique: true, required: true },
