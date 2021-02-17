@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const testController = require('./test.controller.js');
-const userController = require("./user.controller");
-const loginController = require('./login.controller');
-const pageController = require('./page.controller');
-const Controller = require('./controller.js');
+const userController = require("./user.controller.js");
+const loginController = require('./login.controller.js');
+const pageController = require('./page.controller.js');
+const emailController = require('./email.controller.js');
 
 router.use("/api/test", testController);
 
@@ -13,6 +13,7 @@ router.use('/login/attempt', loginController);
 
 router.use('/api/pages', pageController);
 
-router.use('/test', Controller);
+router.use('/api/email', emailController), pageController;
+
 
 module.exports = router;

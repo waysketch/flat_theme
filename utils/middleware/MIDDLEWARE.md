@@ -15,3 +15,10 @@ Emails include:
 - password reset request
 - new users verification
 - email to clients about promotions and offers
+
+**Oauth2**
+Nodemailer [docs](https://nodemailer.com/smtp/oauth2/) for OAuth2.
+
+**Gmail Less Secure Apps**
+
+If using **Gmail** be sure to change settings to _Use Less Secure Apps_ unless you are using OAuth.

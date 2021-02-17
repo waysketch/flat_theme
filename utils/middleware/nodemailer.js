@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 // === EMAIL TEMPLATES ================================================================================================================ //
 // === NOTE: Templates do not have to be HTML files. They can be jsx or javascript files as well and even functions that return markup. //
 // ==================================================================================================================================== //
-const signupTemplate = require('../email.templates/signup.html');
+const { signupTemplate } = require('../email.templates/signup.template');
 
 // =========== //
 // === ENV === //
@@ -23,6 +23,9 @@ const emailPassword = process.env.SITE_PASSWORD;
 
 const transporter = nodemailer.createTransport({
     service: 'gmail', // NOTE: default service is gmail
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: false,
     auth: {
         user: emailUser,
         pass: emailPassword
@@ -33,11 +36,11 @@ const transporter = nodemailer.createTransport({
 // === CONFIG === //
 // ============== //
 
-const configMailOptions = function (emailAddrs, subject, body) {
+const configMailOptions = function (emailAddress, subject, body) {
 
     // === RECIPIENT === //
-    const toEmailAddress = process.env.NODE_ENV === "production" ? emailAddrs : process.env.EMAIL_TO_DEV; // NOTE: EMAIL_TO_DEV means you can send emails from a test account when not in production.
-    
+    const toEmailAddress = process.env.EMAIL_TO_DEV ?? emailAddress; // NOTE: EMAIL_TO_DEV means you can send emails from a test account when not in production.
+
     // === MAKE EMAIL === //
     const mailOptions = {
         from: emailUser,        // sender address
@@ -62,14 +65,9 @@ const sendEmail = function (mailOptions) {
 // === CREATE REQUEST EXAMPLE === //
 // ============================== //
 const EmailAPI = {
-    exampleEmailTask: (emailAddress, name) {
-        const subject = "Example Email";
-        const bodyHtml = `<h1>Example</h1><p>This is only a test, ${name}`
-    },
-
     sendSignupEmail: function (emailAddress) {
-        const subject = "You have signed up as a users.";
-        const bodyHtml = signupTemplate;
+        const subject = "You have signed up as a user for Flat Theme.";
+        const bodyHtml = signupTemplate(emailAddress);
         const mailOptions = configMailOptions(emailAddress, subject, bodyHtml);
         return sendEmail(mailOptions)
     }

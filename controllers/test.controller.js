@@ -78,7 +78,6 @@ router.route("/:id").put((req, res) => {
 // === Delete === //
 // ============== //
 router.route("/:id").delete((req, res) => {
-
     const _id = req.params.id;
     _db.Test
     .findById({ _id: _id })
