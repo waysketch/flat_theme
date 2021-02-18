@@ -52,7 +52,9 @@ try {
     mongoose.connect(
         process.env.MONGODB_URI,
         { useNewUrlParser: true, useUnifiedTopology: true },
-        () => { },
+        () => {
+            console.log("[MONGODB][DATABASE] Connected.");
+        },
     );
 } catch (error) {
     console.log("[MONGODB][DATABASE] Could not connect to the Database. [HINT] Check URI name and address in .env file or server env.");

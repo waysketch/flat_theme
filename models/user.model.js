@@ -8,14 +8,16 @@ const bcrypt = require('bcryptjs');
 const userSchema = new Schema({
 	firstName: { type: String, required: false },
 	lastName: { type: String, required: false },
-	email: { type: String, required: true }, // We will use this as the username
+	verified: { type: Boolean, required: true, default: false },
+	temp_token: { type: String, required: false },
+	email: { type: String, unique: true, required: true},
 	local: {
 		username: { type: String, unique: true, required: true },
-		password: { type: String, unique: false, required: true }
+		password: { type: String, unique: false, required: true },
+		email: { type: String, unique: true, required: true}
 	},
 	key: {
 		type: String,
-		required: true,
 		default: "COPPER",
 		enum: ["COPPER", "SILVER", "GOLD"]
 	},
@@ -46,6 +48,6 @@ userSchema.pre('save', function (next) {
 // ============== //
 // === EXPORT === //
 // ============== //
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
 module.exports = User

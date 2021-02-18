@@ -2,6 +2,7 @@ const db = require("../models");
 const router = require("express").Router();
 const authenticateUser = require("../utils/passport/authenticateUser").authenticateUser;
 const passport = require('../utils/passport');
+const EmailAPI = require("../utils/middleware/nodemailer");
 
 // ================ //
 // === GET USER === //
@@ -15,28 +16,66 @@ router.route('/')
         });
     });
 
-// ================ //
-// === CREATE USER ================================= //
-// === NOTE: logged in user must have a gold key === //
-// ================================================= //
+// ================== //
+// === SETUP PAGE ============================================= //
+// === Checks to see if there are ANY gold key users at all === //
+// ============================================================ //
+router.route('/goldkey')
+.get(( _ , res) => {
+    db.User
+    .find({ key: "GOLD" })
+    .then( _ => {
+        if ( _.length === 0 ){
+            res.json({ areThereUsers: "false" });
+        } else {
+            res.json({ areThereUsers: "true" });
+        }
+    })
+    .catch( err => {
+        res.send("Something went wrong");
+    });
+})
+
+// =================== //
+// === CREATE USER === //
+// =================== //
 router.route('/')
-    .post(authenticateUser, (req, res) => {
-        const { username, password, email, firstName, lastName, key } = req.body;
+    .post((req, res) => {
+        const { password, email } = req.body;
+        let key = "COPPER";
+        const users = db.User.find({});
+        const temp_token = `${email[0]}${Date.now()}`;
 
-        if (req.user.key !== "GOLD") {
-            return res.status(401).json({ message: "You do not have sufficient privileges to add a user" });
-        };
-
-        db.User.create({ local: { username, password }, firstName, lastName, key, email }).then(userRes => {
-            if (!userRes) return res.status(400).json({ message: "User not successfully created" });
-            res.json({
-                message: "User successfully created",
-                username: userRes.local.username,
-                key: userRes.key
-            });
-        }).catch(err => {
-            res.status(500).json(err)
+        users.then( _ => {
+            console.log(_.length);
+        console.log(key);
+            if ( _.length === 0 ) { key = "GOLD" }; // first user in database has a GOLD key.
+            console.log(key);
         })
+        .then( _ => {
+            console.log(key);
+            db.User.create({ local: { username: email, password, email }, email, temp_token, key}).then(userRes => {
+                if (!userRes) return res.status(400).json({ message: "User not created" });
+    
+                // SEND VERIFICATION EMAIL
+                EmailAPI.sendVerificationEmail(email, temp_token)
+                .then( _ => {
+                    res.json({
+                        message: "User successfully created, please check for verification email before you can use your account.",
+                        username: userRes.local.username
+                    });
+                })
+                .catch( _ => {
+                    res.status(500).send("Oops! Somethings gone wrong.");
+                });
+            }).catch(err => {
+                console.log(err);
+                res.status(500).json(err)
+            });
+        })
+        .catch( err => {
+            res.json(err);
+        });
     });
 
 // ================ //

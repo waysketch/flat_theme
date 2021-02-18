@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 // ============= //
 const types = [
     "email",
+    "red flag"
 ];
 
 // ============== //

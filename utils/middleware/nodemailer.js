@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 // === NOTE: Templates do not have to be HTML files. They can be jsx or javascript files as well and even functions that return markup. //
 // ==================================================================================================================================== //
 const { signupTemplate } = require('../email.templates/signup.template');
+const { verifyUserTemplate } = require('../email.templates/newuser.template');
 
 // =========== //
 // === ENV === //
@@ -39,7 +40,7 @@ const transporter = nodemailer.createTransport({
 const configMailOptions = function (emailAddress, subject, body) {
 
     // === RECIPIENT === //
-    const toEmailAddress = process.env.EMAIL_TO_DEV ?? emailAddress; // NOTE: EMAIL_TO_DEV means you can send emails from a test account when not in production.
+    const toEmailAddress = emailAddress; // NOTE: EMAIL_TO_DEV means you can send emails from a test account when not in production.
 
     // === MAKE EMAIL === //
     const mailOptions = {
@@ -68,6 +69,12 @@ const EmailAPI = {
     sendSignupEmail: function (emailAddress) {
         const subject = "You have signed up as a user for Flat Theme.";
         const bodyHtml = signupTemplate(emailAddress);
+        const mailOptions = configMailOptions(emailAddress, subject, bodyHtml);
+        return sendEmail(mailOptions)
+    },
+    sendVerificationEmail: function (emailAddress, temp_token) {
+        const subject = "Please verify your account";
+        const bodyHtml = verifyUserTemplate(emailAddress, temp_token);
         const mailOptions = configMailOptions(emailAddress, subject, bodyHtml);
         return sendEmail(mailOptions)
     }

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // === EXPORT FROM FOLDER === //
 // ========================== //
 export * from './components/toolbox.style';
+export * from './components/button.style';
 
 // ============== //
 //   COMPONENTS   //

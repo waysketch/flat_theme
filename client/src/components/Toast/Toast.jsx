@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateToastVisible } from '../../redux/actions';
 import * as S from '../../theme';

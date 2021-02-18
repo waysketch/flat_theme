@@ -3,10 +3,10 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const strategy = new LocalStrategy(
 	{
-		usernameField: 'email' // not necessary, DEFAULT
+		usernameField: 'username' // not necessary, DEFAULT
 	},
 	function (username, password, done) {
-		User.findOne({ 'local.username': username }, (err, userMatch) => {
+		User.findOne({ 'email': username }, (err, userMatch) => {
 
 			// === Check for Errors === //
 			if (err) {

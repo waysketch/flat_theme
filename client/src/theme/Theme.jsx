@@ -63,7 +63,8 @@ export default function Theme({ children }) {
             secondary: darkMode ? palette.gold : palette.red,
             secondary_off: darkMode ? palette.light : palette.dark,
 
-            splash: palette.gold,
+            splash: darkMode ? palette.darkBlue : palette.gold,
+            splash_off: darkMode ? palette.blue : palette.red,
         },
 
         breakpoint: {
