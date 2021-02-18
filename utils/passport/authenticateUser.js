@@ -1,6 +1,5 @@
 module.exports = {
     authenticateUser: (req,res,next) => {
-        console.log('test');
         if(req.user){
             next();
         }

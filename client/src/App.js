@@ -34,7 +34,7 @@ export default function App() {
       .finally(() => {
         // === remove page loading === //
         updateLoading(false);
-      })
+      });
   }, []);
 
   // ============== //

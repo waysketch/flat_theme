@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import * as S from '../../theme';
+import { useDispatch } from 'react-redux';
+import { updateLogin } from '../../redux/actions';
 
 export default function Setup() {
+    const dispatch = useDispatch();
     const [thereIsAGoldKeyUsers, updateThereIsAGoldKeyUsers] = useState(true);
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
@@ -42,12 +45,34 @@ export default function Setup() {
         });
     };
 
+    const loginButtonHandler = () => {
+        axios.post('/auth/login', {
+            username: email,
+            password
+        })
+        .then( _ => {
+            console.log(_.data);
+            dispatch(updateLogin(true));
+            // TODO: create home page
+            // then => nav to home page
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    };
+
+    const loginEnterHandler = (e) => {
+        if (e.keyCode === 13) {
+            loginButtonHandler();
+        };
+    };
+
     const addUserButtonHandler = (e) => {
         // keyCode 13 === "Enter"
         if (e.keyCode === 13) {
             createUserHandler();
         };
-    }
+    };
 
     // === RETURN === //
     return (
@@ -56,8 +81,8 @@ export default function Setup() {
         <S.Setup>
             <h1>Please Sign In</h1>
             <input value={email} onChange={e => updateEmail(e.target.value)} type="email" name="email" placeholder="example@waysketch.com" required/>
-            <input value={password} onChange={e => updatePassword(e.target.value)} type="password" placeholder="password" required/>
-            <S.Button>Sign in</S.Button>
+            <input value={password} onChange={e => updatePassword(e.target.value)} onKeyDown={loginEnterHandler} type="password" placeholder="password" required/>
+            <S.Button onClick={loginButtonHandler}>Sign in</S.Button>
         </S.Setup>
         :
         <S.Setup>
