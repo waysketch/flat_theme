@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import './reset.css';
 
@@ -10,14 +8,11 @@ import './reset.css';
 export default function Theme({ children }) {
 
     // FILL FROM DATABASE //
-    const [darkMode] = useState(useSelector(state => state.darkMode));
+    const darkMode = useSelector(state => state.darkMode);
 
     // ========= //
     //   FONTS   //
     // ========= //
-    let headerUrl = 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;400;900&display=swap';
-    let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
-
     const headerFamily = "Open Sans, sans-serif";
     const bodyFamily = "'Roboto Slab', serif";
     const splashFamily = "'Roboto Slab', serif";
@@ -51,6 +46,8 @@ export default function Theme({ children }) {
     // ================ //
     const theme = {
 
+        darkMode,
+
         palette: palette,
 
         color: {
@@ -58,7 +55,7 @@ export default function Theme({ children }) {
             background: darkMode ? palette.dark : palette.light,
 
             primary: darkMode ? palette.dark : palette.light,
-            primary_off: darkMode ? palette.grey : palette.fogDog,
+            primary_off: darkMode ? palette.grey : palette.gold,
 
             secondary: darkMode ? palette.gold : palette.red,
             secondary_off: darkMode ? palette.light : palette.dark,
@@ -88,43 +85,8 @@ export default function Theme({ children }) {
     // === RETURN === //
     // ============== //
     return (
-        <Reset
-            foo={headerUrl}
-            bar={bodyUrl}
-            textFontFamily={bodyFamily}
-            headerFontFamily={headerFamily}
-            fontColor={theme.color.font}
-            backgroundColor={theme.color.background}
-            splashColor={theme.color.splash}
-        >
-            <ThemeProvider theme={theme}>
-                {children}
-            </ThemeProvider>
-        </Reset>
+        <ThemeProvider theme={theme}>
+            {children}
+        </ThemeProvider>
     )
 };
-
-// ========= //
-//   RESET   //
-// ========= //
-const Reset = styled.main`
-    font-family: ${props => props.textFontFamily};
-    width: 100vw;
-    height: 100vh;
-    color: ${props => props.fontColor};
-    background-color: ${props => props.backgroundColor};
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-weight: 900;
-        font-family: ${props => props.headerFontFamily};
-    }
-
-    a {
-        color: ${props => props.splashColor};
-    }
-`;

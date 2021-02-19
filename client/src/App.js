@@ -7,15 +7,19 @@ import Setup from './pages/Setup/Setup.jsx';
 import { Loading } from './theme';
 import axios from 'axios';
 import Toolbox from './components/Toolbox/Toolbox.jsx';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateNoDatabase } from './redux/actions';
 import Toast from './components/Toast/Toast.jsx';
 
 export default function App() {
   // ============= //
   // === HOOKS === //
   // ============= //
+  const dispatch = useDispatch();
   const [loading, updateLoading] = useState(true);
   const [pages, updatePages] = useState([]);
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const user = useSelector(state => state.user)
 
   // =============== //
   // === ON LOAD === //
@@ -30,12 +34,13 @@ export default function App() {
       .catch(_ => {
         // === NOT 200 === //
         console.log('Unable to get pages from server in [App.js].');
+        dispatch(updateNoDatabase(true));
       })
       .finally(() => {
         // === remove page loading === //
         updateLoading(false);
       });
-  }, []);
+  }, [dispatch]);
 
   // ============== //
   // === RETURN === //
@@ -51,8 +56,8 @@ export default function App() {
           {/* LOAD PAGES */}
           {
             pages.length > 0
-              ? pages.map(page => {
-                return <Route key={page.id} exact path={page.route} render={() => <Page key={page.id} components={page.components} />} />
+              ? pages.map((page, index) => {
+                return <Route key={`Page_${index}`} exact path={page.route} render={() => <Page key={page.id} hideFooter={page.hide_footer ?? false} components={page.components} />} />
               })
               :
               <Fragment>
@@ -63,15 +68,22 @@ export default function App() {
 
           {/* DO NOT CODE BELOW THIS LINE */}
           <Route render={() => <Error />} />
-
         </Switch>
+        
+          {/* TOOLBOX */}
+          {
+            isLoggedIn && user.verified && user.key === "GOLD"
+              ?
+              <Toolbox />
+              :
+              ""
+          }
+
+          {/* TOAST */}
+          {<Toast />}
+          
       </BrowserRouter>
 
-      {/* TOOLBOX */}
-      { useSelector(state => state.isLoggedIn) ? <Toolbox /> : ""}
-
-      {/* TOAST */}
-      { <Toast /> }
     </Fragment>
   );
 };

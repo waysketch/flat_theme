@@ -42,18 +42,17 @@ router.route('/goldkey')
 router.route('/')
     .post((req, res) => {
         const { password, email } = req.body;
+
+        console.log(`Creating user for ${email}`);
+
         let key = "COPPER";
         const users = db.User.find({});
         const temp_token = `${email[0]}${Date.now()}`;
 
         users.then( _ => {
-            console.log(_.length);
-        console.log(key);
             if ( _.length === 0 ) { key = "GOLD" }; // first user in database has a GOLD key.
-            console.log(key);
         })
         .then( _ => {
-            console.log(key);
             db.User.create({ local: { username: email, password, email }, email, temp_token, key}).then(userRes => {
                 if (!userRes) return res.status(400).json({ message: "User not created" });
     
@@ -70,11 +69,12 @@ router.route('/')
                 });
             }).catch(err => {
                 console.log(err);
-                res.status(500).json(err)
+                res.status(500).json(err);
             });
         })
         .catch( err => {
-            res.json(err);
+            console.log(err);
+            res.status(500).send("Unable to create user");
         });
     });
 

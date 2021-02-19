@@ -1,6 +1,6 @@
 module.exports = {
     authenticateUser: (req,res,next) => {
-        if(req.user){
+        if(req.body.user){
             next();
         }
         else{

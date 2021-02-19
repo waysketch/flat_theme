@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const _db = require("../models").Page;
+const authenticateUser = require("../utils/passport/authenticateUser").authenticateUser;
 
 if (process.env.NODE_EV !== "production") {
     require('dotenv').config();
@@ -26,7 +27,7 @@ router.route("/").get((req, res) => {
 // === CREATE PAGE === //
 // =================== //
 
-router.route("/create").post((req, res) => {
+router.route("/create").post(authenticateUser, (req, res) => {
     _db
         .create(req.body)
         .then(dbModel => {
@@ -61,6 +62,7 @@ const fakeDataFromDB = [
         name: "Home",
         route: "/",
         nav: ["header"],
+        hide_footer: false,
         components: [
             {
                 name: "Header",

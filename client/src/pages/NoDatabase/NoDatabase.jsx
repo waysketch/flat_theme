@@ -1,21 +1,24 @@
 import * as S from '../../theme';
-import { useSelector, useDispatch } from "react-redux";
-import { updateLogin, updateToastData } from '../../redux/actions';
+import { useDispatch } from "react-redux";
+import { updateToastData } from '../../redux/actions';
+import { Fragment } from 'react';
+import Footer from '../../components/Footer/Footer';
 
 export default function NoDatabase() {
     const dispatch = useDispatch();
-    const areWeLoggedIn = useSelector(state => state.isLoggedIn);
 
     const clickHandler = () => {
-        dispatch(updateLogin(!areWeLoggedIn));
         dispatch(updateToastData(<div>Hello {Date.now()}</div>));
-    }
+    };
 
     return (
-        <S.NoDatabase>
-            <h1>No database found</h1>
-            <p>This is a default html page.</p>
-            <div onClick={clickHandler}>press</div>
-        </S.NoDatabase>
+        <Fragment>
+            <S.NoDatabase>
+                <h1>No database found</h1>
+                <p>This is a default html page.</p>
+                <div onClick={clickHandler}>press</div>
+            </S.NoDatabase>
+            <Footer />
+        </Fragment>
     )
 };

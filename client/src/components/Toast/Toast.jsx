@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateToastVisible } from '../../redux/actions';
 import * as S from '../../theme';
@@ -15,9 +16,11 @@ export default function Toast(props) {
 
     // === RETURN === //
     return (
-        <S.Toast show={isVisible}>
-            <S.Shadow onClick={hideToastHandler}/>
-            {toastData}
-        </S.Toast>
+        <Fragment>
+            <S.Shadow show={isVisible} onClick={hideToastHandler}/>
+            <S.Toast show={isVisible}>
+                {toastData}
+            </S.Toast>
+        </Fragment>
     )
 }

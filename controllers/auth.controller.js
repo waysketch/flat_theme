@@ -26,13 +26,19 @@ router.post('/login',
     },
     passport.authenticate('local'),
     (req, res) => {
-        console.log('keep going');
         const user = JSON.parse(JSON.stringify(req.user));
         const cleanUser = Object.assign({}, user);
-        if (cleanUser.local) {
-            delete cleanUser.local.password
+        const secureUserData = {
+            local: {
+                username: cleanUser.local.username?? cleanUser.local.username,
+                email: cleanUser.email ?? "",
+            },
+            email: cleanUser.email ?? "",
+            key: cleanUser.key ?? "WOOD",
+            verified: cleanUser.verified ?? false
         };
-        res.json({ user: cleanUser })
+
+        res.json({ user: secureUserData })
     }
 );
 

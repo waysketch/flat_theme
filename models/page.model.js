@@ -13,6 +13,7 @@ const pageSchema = new Schema({
     name: { type: String, required: true },
     route: { type: String, required: true, unique: true },
     nav: { type: Array, required: false },
+    hide_footer: { type: Boolean, default: false, required: false },
     components: { type: Object, required: false },
     date: { type: Date, default: Date.now }
 });
