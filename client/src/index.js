@@ -6,15 +6,18 @@ import allReducers from './redux/reducers';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Theme from './theme/Theme.jsx';
+import { Reset } from './theme/styled/reset.style.js';
 
 const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <Provider store={store}>
     <Theme>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <Reset>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Reset>
     </Theme>
   </Provider>,
   document.getElementById('root')

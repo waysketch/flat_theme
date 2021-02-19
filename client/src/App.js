@@ -1,24 +1,89 @@
-import React from "react";
-import {Route, Switch, BrowserRouter} from "react-router-dom";
-import Home from './pages/Home/Home.jsx';
-import Login from './pages/Login/Login.jsx';
+import React, { Fragment, useEffect, useState } from "react";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import Page from './pages/Page/Page.jsx';
 import Error from './pages/Error/Error.jsx';
+import NoDatabase from './pages/NoDatabase/NoDatabase.jsx';
+import Setup from './pages/Setup/Setup.jsx';
+import { Loading } from './theme';
+import axios from 'axios';
+import Toolbox from './components/Toolbox/Toolbox.jsx';
+import { useDispatch, useSelector } from "react-redux";
+import { updateNoDatabase } from './redux/actions';
+import Toast from './components/Toast/Toast.jsx';
 
-function App() {
+export default function App() {
+  // ============= //
+  // === HOOKS === //
+  // ============= //
+  const dispatch = useDispatch();
+  const [loading, updateLoading] = useState(true);
+  const [pages, updatePages] = useState([]);
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const user = useSelector(state => state.user)
+
+  // =============== //
+  // === ON LOAD === //
+  // =============== //
+  useEffect(() => {
+    // === GET PAGES === //
+    axios.get('/api/pages')
+      .then(pageArray => {
+        // === 200 === //
+        updatePages(pageArray.data);
+      })
+      .catch(_ => {
+        // === NOT 200 === //
+        console.log('Unable to get pages from server in [App.js].');
+        dispatch(updateNoDatabase(true));
+      })
+      .finally(() => {
+        // === remove page loading === //
+        updateLoading(false);
+      });
+  }, [dispatch]);
+
+  // ============== //
+  // === RETURN === //
+  // ============== //
   return (
-    <BrowserRouter>
-      <Switch>
-        {/* HOME PAGE */}
-        <Route exact path="/" render={() => <Home />} />
+    <Fragment>
+      { /* LOADING */}
+      {loading ? <Loading /> : ""}
 
-        {/* LOGIN PAGE */}
-        <Route exact path="/login" render={() => <Login />} />
+      { /* SITE */}
+      <BrowserRouter>
+        <Switch>
+          {/* LOAD PAGES */}
+          {
+            pages.length > 0
+              ? pages.map((page, index) => {
+                return <Route key={`Page_${index}`} exact path={page.route} render={() => <Page key={page.id} hideFooter={page.hide_footer ?? false} components={page.components} />} />
+              })
+              :
+              <Fragment>
+                <Route exact path="/setup" render={() => <Setup />} />
+                <Route exact path="/" render={() => <NoDatabase />} />
+              </Fragment>
+          }
 
-        {/* DO NOT CODE BELOW THIS LINE */}
-        <Route render={() => <Error />} />
-      </Switch>
-    </BrowserRouter>
+          {/* DO NOT CODE BELOW THIS LINE */}
+          <Route render={() => <Error />} />
+        </Switch>
+        
+          {/* TOOLBOX */}
+          {
+            isLoggedIn && user.verified && user.key === "GOLD"
+              ?
+              <Toolbox />
+              :
+              ""
+          }
+
+          {/* TOAST */}
+          {<Toast />}
+          
+      </BrowserRouter>
+
+    </Fragment>
   );
-}
-
-export default App;
+};

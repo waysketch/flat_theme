@@ -1,27 +1,16 @@
-import styled from 'styled-components';
-
-// ============== //
-//   COMPONENTS   //
-// ============== //
-export const Root = styled.section`
-    font-family: ${props => props.theme.font.body};
-    width: 100vw;
-    height: 100vh;
-    color: ${props => props.theme.color.font};
-    background-color: ${props => props.theme.color.primary};
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-weight: 900;
-        font-family: ${props => props.theme.color.primary}
-    }
-`;
-
-export const Frame = styled.div`
-    max-width: ${props => props.theme.max.width};
-    margin: auto;
-`;
+// =================================== //
+// === EXPORT FROM ./styled FOLDER === //
+// =================================== //
+export { Footer, FooterSection, Copywrite } from './styled/footer.style.js';
+export { NoDatabase, Setup } from './styled/something_broke.style.js';
+export { Frame, FlexFrame } from './styled/frame.style.js';
+export { Toast, TinyToast } from './styled/toast.style';
+export { Toggle, Dot } from './styled/toggle.style.js';
+export { Row, RowRight } from './styled/row.style.js';
+export { Toolbox } from './styled/toolbox.style.js';
+export { Loading } from './styled/loading.style.js';
+export { Button, SolidButton } from './styled/button.style.js';
+export { Shadow } from './styled/shadow.style.js';
+export { Login } from './styled/login.style.js';
+export { Page } from './styled/page.style.js';
+export * as svg from './styled/svg.js';
