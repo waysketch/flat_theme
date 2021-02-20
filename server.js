@@ -10,27 +10,21 @@ if (process.env.NODE_EV !== "production") {
 // ==================== //
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const session = require('express-session');
+var cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('./utils/passport');
+const mongoose = require('mongoose');
 const path = require('path');
 const routes = require('./controllers');
-const session = require('express-session');
-const passport = require('./utils/passport');
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('mongoose');
 
 // =================== //
 // === Use Express === //
 // =================== //
 
 const app = express();
-
-app.use(express.json());
-
-app.use(
-    express.urlencoded({
-        extended: false,
-    })
-);
 
 // ============= //
 // === Ports === //
@@ -43,7 +37,18 @@ const PORT = process.env.PORT || 8080; // server port NOT the website port.
 // ================== //
 
 app.use(morgan('dev')); // lets us see our routes when we ping the server.
+app.use(cookieParser("jimmy"));
+const cookieExpirationDate = new Date();
+const cookieExpirationDays = 365;
+cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 
+app.use(bodyParser.json());
+    
 // =============== //
 // === MongoDB === //
 // =============== //
@@ -62,10 +67,14 @@ try {
 
 app.use(
   session({
-    secret: process.env.APP_SECRET || "this is the default passphrase DONT USE THIS CODE IN PRODUCTION",
+    secret: "jimmy",
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+	    httpOnly: true,
+	    expires: cookieExpirationDate // use expires instead of maxAge
+	}
   })
 );
 
@@ -73,13 +82,8 @@ app.use(
 // === Passport / Login === //
 // ======================== //
 
-app.use(passport.initialize());
-
-// ============================= //
-// === Routing & Controllers === //
-// ============================= //
-
-app.use(routes);
+app.use(passport.initialize())
+app.use(passport.session()) // will call the deserializeUser
 
 // ================== //
 // === Static App === //
@@ -87,7 +91,13 @@ app.use(routes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
-}
+};
+
+// ============================= //
+// === Routing & Controllers === //
+// ============================= //
+
+app.use(routes);
 
 // ================= //
 // === React App === //

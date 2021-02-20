@@ -21,10 +21,37 @@ export default function Toolbox() {
     // === RETURN === //
     return (
         <S.Toolbox isOpen={openToolboxToggle}>
-            <div className="toggle" onClick={closeToolbox}>
-                {openToolboxToggle ? S.svg.sign_out : S.svg.toolbox}
+
+            <div className="toggle">
+
+                <S.Tab onClick={closeToolbox} title={openToolboxToggle ? "close" : "open"} open={openToolboxToggle}>
+                    {openToolboxToggle ? S.svg.sign_out : S.svg.toolbox}
+                </S.Tab>
+
+                <S.Tab title="Pages" open={openToolboxToggle}>
+                    {S.svg.file}
+                </S.Tab>
+
+                <S.Tab title="Style" open={openToolboxToggle}>
+                    {S.svg.swatchbook}
+                </S.Tab>
+
+                <S.Tab title="Users" open={openToolboxToggle}>
+                    {S.svg.user_edit}
+                </S.Tab>
+
+                <S.Tab title="Users" open={openToolboxToggle}>
+                    {S.svg.images}
+                </S.Tab>
+
+                <S.Tab title="Settings" open={openToolboxToggle}>
+                    {S.svg.tools}
+                </S.Tab>
+
             </div>
+
             <h2>Toolbox!</h2>
+
             <ul>
                 <li>Create User</li>
                 <li>SAVE</li>

@@ -8,7 +8,7 @@ import { Loading } from './theme';
 import axios from 'axios';
 import Toolbox from './components/Toolbox/Toolbox.jsx';
 import { useDispatch, useSelector } from "react-redux";
-import { updateNoDatabase } from './redux/actions';
+import { updateNoDatabase, updateLogin, updateUser } from './redux/actions';
 import Toast from './components/Toast/Toast.jsx';
 
 export default function App() {
@@ -37,8 +37,19 @@ export default function App() {
         dispatch(updateNoDatabase(true));
       })
       .finally(() => {
-        // === remove page loading === //
-        updateLoading(false);
+        axios.get("/auth/user").then( res => {
+          if (!!res.data.user) {
+            dispatch(updateLogin(true));
+            dispatch(updateUser(res.data.user));
+          } else {
+            dispatch(updateLogin(false));
+            dispatch(updateUser(null));
+          };
+        })
+        .finally( () => {
+          // === remove page loading === //
+          updateLoading(false);
+        });
       });
   }, [dispatch]);
 
@@ -72,7 +83,7 @@ export default function App() {
         
           {/* TOOLBOX */}
           {
-            isLoggedIn && user.verified && user.key === "GOLD"
+            isLoggedIn && user?.verified && user.key === "GOLD"
               ?
               <Toolbox />
               :

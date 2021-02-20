@@ -41,6 +41,7 @@ router.route('/goldkey')
 // =================== //
 router.route('/')
     .post((req, res) => {
+        console.log('test');
         const { password, email } = req.body;
 
         console.log(`Creating user for ${email}`);
@@ -53,7 +54,7 @@ router.route('/')
             if ( _.length === 0 ) { key = "GOLD" }; // first user in database has a GOLD key.
         })
         .then( _ => {
-            db.User.create({ local: { username: email, password, email }, email, temp_token, key}).then(userRes => {
+            db.User.create({ local: { username: email, password, email }, email, temp_token, key, role: "admin"}).then(userRes => {
                 if (!userRes) return res.status(400).json({ message: "User not created" });
     
                 // SEND VERIFICATION EMAIL
@@ -136,5 +137,29 @@ router.route('/:id/password')
             res.json({ err: error });
         });
     });
+
+    // Signup
+// router.post('/signup', (req, res) => {
+//     const { username, password, firstName, lastName, role } = req.body
+//     // TODO Add Validation
+//     User.findOne({ 'local.username': username }, (err, userMatch) => {
+//         if (userMatch) {
+//             return res.json({
+//                 error: `Sorry, already a user with the username: ${username}`
+//             })
+//         }
+//         const newUser = new User({
+//             firstName : firstName,
+//             lastName: lastName,
+//             role: role,
+//             'local.username': username,
+//             'local.password': password
+//         })
+//         newUser.save((err, savedUser) => {
+//             if (err) return res.json(err)
+//             return res.json(savedUser)
+//         })
+//     })
+// })
 
 module.exports = router;
