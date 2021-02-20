@@ -74,14 +74,8 @@ app.use(
 // === Passport / Login === //
 // ======================== //
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-// ============================= //
-// === Routing & Controllers === //
-// ============================= //
-
-app.use(routes);
+app.use(passport.initialize())
+app.use(passport.session()) // will call the deserializeUser
 
 // ================== //
 // === Static App === //
@@ -89,7 +83,13 @@ app.use(routes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
-}
+};
+
+// ============================= //
+// === Routing & Controllers === //
+// ============================= //
+
+app.use(routes);
 
 // ================= //
 // === React App === //

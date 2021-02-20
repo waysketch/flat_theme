@@ -27,10 +27,11 @@ export default function Login() {
         })
             .then( _ => {
                 const user = {
-                    username: _.data.user.local.username ?? _.data.user.email,
-                    key: _.data.user.key ?? "WOOD",
-                    verified: _.data.user.verified ?? false,
-                    email: _.data.user.email
+                    username: _.data.user.local.username ? _.data.user.local.username : _.data.user.email,
+                    key: _.data.user.key ? _.data.user.key : "WOOD",
+                    verified: _.data.user.verified ? _.data.user.verified : false,
+                    email: _.data.user.email,
+                    _id: _.data.user._id
                 };
 
                 dispatch(updateLogin(true));

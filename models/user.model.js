@@ -21,7 +21,12 @@ const userSchema = new Schema({
 		default: "COPPER",
 		enum: ["COPPER", "SILVER", "GOLD"]
 	},
-	date: { type: Date, default: Date.now }
+	role: {
+		type: String,
+		required: true,
+		default: "user",
+		enum: ["user","admin"]
+	}
 });
 
 // ======================== //
@@ -34,8 +39,9 @@ userSchema.methods = {
 	hashPassword: plainTextPassword => {
 		return bcrypt.hashSync(plainTextPassword, 10)
 	}
-};
+}
 
+// MUST HASH BEFORE SAVE
 userSchema.pre('save', function (next) {
 	if (!this.local.password) {
 		next()
@@ -43,11 +49,11 @@ userSchema.pre('save', function (next) {
 		this.local.password = this.hashPassword(this.local.password)
 		next()
 	}
-});
+})
 
 // ============== //
 // === EXPORT === //
 // ============== //
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema)
 
 module.exports = User

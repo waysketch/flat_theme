@@ -3,6 +3,23 @@ const router = express.Router()
 const User = require("../models").User;
 const passport = require('../utils/passport');
 
+// Google Auth
+router.get('/google',
+    passport.authenticate('google', {
+        scope: ['profile']
+    })
+)
+
+// Google Redirect
+router.get(
+    '/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    })
+)
+
+
 // Find User
 router.get('/user',
     
@@ -11,15 +28,18 @@ router.get('/user',
 // Login
 router.post('/login',
     ( req , res , next) => {
+        console.log('test');
         const { username } = req.body;
         User
         .findOne({ email : username })
         .then( theUser => {
             if ( theUser.verified !== true ){
                 // TODO resend verification email here
+                console.log('[LOGIN][WARN] User is not verified.');
                 res.send("User is not verified");
                 return;
             } else {
+                console.log('[LOGIN]next();');
                 next();
             };
         });

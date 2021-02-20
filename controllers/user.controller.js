@@ -41,6 +41,7 @@ router.route('/goldkey')
 // =================== //
 router.route('/')
     .post((req, res) => {
+        console.log('test');
         const { password, email } = req.body;
 
         console.log(`Creating user for ${email}`);
@@ -53,7 +54,7 @@ router.route('/')
             if ( _.length === 0 ) { key = "GOLD" }; // first user in database has a GOLD key.
         })
         .then( _ => {
-            db.User.create({ local: { username: email, password, email }, email, temp_token, key}).then(userRes => {
+            db.User.create({ local: { username: email, password, email }, email, temp_token, key, role: "admin"}).then(userRes => {
                 if (!userRes) return res.status(400).json({ message: "User not created" });
     
                 // SEND VERIFICATION EMAIL
