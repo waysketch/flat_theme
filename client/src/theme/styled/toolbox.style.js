@@ -26,6 +26,10 @@ export const Toolbox = styled.div`
 
     .toggle {
         position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        width: 3em;
         top: 0;
         left: calc(-3em - 2px);
         color: ${props => props.theme.color.font};
@@ -41,15 +45,16 @@ export const Tab = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 2em;
-    width: 2em;
+    height: ${props => props.open ? "2em" : ".5em"};
+    width: ${props => props.open ? "2em" : ".5em"};
     padding: .5em;
     border: 1px dotted ${props => props.theme.color.font};
     opacity: .5;
+    transition: width .3s .3s, height .3s .6s;
 
     svg {
-        max-width: 1.5em;
-        max-height: 1.5em;
+        max-width: 100%;
+        max-height: 100%;
         user-select: none;
     }
 
@@ -64,8 +69,9 @@ export const Tab = styled.div`
     }
 
     &:first-child {
-        border-bottom: none;
         border-radius: .5em 0 0 0;
+        height: 2em;
+        width: 2em;
 
         &:active svg {
             transform: none;
@@ -74,6 +80,10 @@ export const Tab = styled.div`
 
     &:last-child {
         border-radius: 0 0 0 .5em;
+    }
+
+    &:nth-child(2) {
+        border-top: 0;
     }
 
     &:nth-child(even) {

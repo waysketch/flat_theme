@@ -24,23 +24,27 @@ export default function Toolbox() {
 
             <div className="toggle">
 
-                <S.Tab onClick={closeToolbox} title={openToolboxToggle ? "close" : "open"}>
+                <S.Tab onClick={closeToolbox} title={openToolboxToggle ? "close" : "open"} open={openToolboxToggle}>
                     {openToolboxToggle ? S.svg.sign_out : S.svg.toolbox}
                 </S.Tab>
 
-                <S.Tab title="Pages">
+                <S.Tab title="Pages" open={openToolboxToggle}>
                     {S.svg.file}
                 </S.Tab>
 
-                <S.Tab title="Style">
+                <S.Tab title="Style" open={openToolboxToggle}>
                     {S.svg.swatchbook}
                 </S.Tab>
 
-                <S.Tab title="Users">
+                <S.Tab title="Users" open={openToolboxToggle}>
                     {S.svg.user_edit}
                 </S.Tab>
 
-                <S.Tab title="Settings">
+                <S.Tab title="Users" open={openToolboxToggle}>
+                    {S.svg.images}
+                </S.Tab>
+
+                <S.Tab title="Settings" open={openToolboxToggle}>
                     {S.svg.tools}
                 </S.Tab>
 
