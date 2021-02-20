@@ -28,17 +28,14 @@ router.post('/login',
     (req, res) => {
         const user = JSON.parse(JSON.stringify(req.user));
         const cleanUser = Object.assign({}, user);
-        const secureUserData = {
-            local: {
-                username: cleanUser.local.username?? cleanUser.local.username,
-                email: cleanUser.email ?? "",
-            },
-            email: cleanUser.email ?? "",
-            key: cleanUser.key ?? "WOOD",
-            verified: cleanUser.verified ?? false
+        
+        if (cleanUser.local) {
+            delete cleanUser.local.password
         };
 
-        res.json({ user: secureUserData })
+        console.log(cleanUser);
+
+        res.json({ user: cleanUser })
     }
 );
 

@@ -10,27 +10,20 @@ if (process.env.NODE_EV !== "production") {
 // ==================== //
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('./utils/passport');
+const mongoose = require('mongoose');
 const path = require('path');
 const routes = require('./controllers');
-const session = require('express-session');
-const passport = require('./utils/passport');
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('mongoose');
 
 // =================== //
 // === Use Express === //
 // =================== //
 
 const app = express();
-
-app.use(express.json());
-
-app.use(
-    express.urlencoded({
-        extended: false,
-    })
-);
 
 // ============= //
 // === Ports === //
@@ -44,6 +37,14 @@ const PORT = process.env.PORT || 8080; // server port NOT the website port.
 
 app.use(morgan('dev')); // lets us see our routes when we ping the server.
 
+app.use(
+    bodyParser.urlencoded({
+        extended: false,
+    })
+);
+
+app.use(bodyParser.json());
+    
 // =============== //
 // === MongoDB === //
 // =============== //
@@ -64,8 +65,8 @@ app.use(
   session({
     secret: process.env.APP_SECRET || "this is the default passphrase DONT USE THIS CODE IN PRODUCTION",
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true
   })
 );
 
@@ -74,6 +75,7 @@ app.use(
 // ======================== //
 
 app.use(passport.initialize());
+app.use(passport.session());
 
 // ============================= //
 // === Routing & Controllers === //

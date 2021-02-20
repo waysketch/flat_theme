@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('./localStrategy');
-const User = require('../../models').User; // reach into the index file and not the user.model.js itself.
+const User = require('../../models').User;
 
 passport.serializeUser((user, done) => {
 	done(null, { _id: user._id })
@@ -9,8 +9,8 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
 	User.findOne(
 		{ _id: id },
-		'email local.username',
-		(err, user) => {
+		'email local.username key',
+		( _ , user) => {
 			done(null, user)
 		}
 	)
