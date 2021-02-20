@@ -74,7 +74,7 @@ export default function Setup() {
                     ?
                     <S.Setup>
                         {
-                            user.verified
+                            user?.verified
                                 ?
                                 <S.Frame>
                                     <h1>Welcome</h1>

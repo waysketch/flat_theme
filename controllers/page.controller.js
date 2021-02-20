@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const _db = require("../models").Page;
 const authenticateUser = require("../utils/passport/authenticateUser").authenticateUser;
+const passport = require('../utils/passport');
 
 if (process.env.NODE_EV !== "production") {
     require('dotenv').config();
@@ -12,15 +13,15 @@ if (process.env.NODE_EV !== "production") {
 
 router.route("/").get((req, res) => {
     _db
-        .find({})
-        .then( dbModel => {
-            res.json(dbModel);
+    .find({})
+    .then( dbModel => {
+        res.json(dbModel);
+    })
+    .catch( _ => {
+        res.json({
+            msg: "Oops! Something has gone wrong."
         })
-        .catch( _ => {
-            res.json({
-                msg: "Oops! Something has gone wrong."
-            })
-        })
+    });
 });
 
 // =================== //

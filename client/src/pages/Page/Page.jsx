@@ -10,8 +10,6 @@ export default function Page(props) {
 
     // === ON LOAD === //
     useEffect(() => {
-        console.log(hideFooter);
-        
         const renderThese = [];
 
         props.components.forEach((component, index) => {

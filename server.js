@@ -13,6 +13,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
+var cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('./utils/passport');
 const mongoose = require('mongoose');
@@ -36,10 +37,13 @@ const PORT = process.env.PORT || 8080; // server port NOT the website port.
 // ================== //
 
 app.use(morgan('dev')); // lets us see our routes when we ping the server.
-
+app.use(cookieParser("jimmy"));
+const cookieExpirationDate = new Date();
+const cookieExpirationDays = 365;
+cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
 app.use(
     bodyParser.urlencoded({
-        extended: false,
+        extended: true,
     })
 );
 
@@ -63,10 +67,14 @@ try {
 
 app.use(
   session({
-    secret: process.env.APP_SECRET || "this is the default passphrase DONT USE THIS CODE IN PRODUCTION",
+    secret: "jimmy",
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+	    httpOnly: true,
+	    expires: cookieExpirationDate // use expires instead of maxAge
+	}
   })
 );
 

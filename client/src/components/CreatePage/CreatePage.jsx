@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import * as S from '../../theme';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { updateToastData, updateToastVisible } from '../../redux/actions';
+import { updateToastData } from '../../redux/actions';
 
 export default function CreatePage() {
     // === STATE === //

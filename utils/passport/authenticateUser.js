@@ -2,8 +2,7 @@ module.exports = {
     authenticateUser: (req,res,next) => {
         if(req.user){
             next();  //logged in, continue
-        }
-        else{
+        } else {
             const result = { 
                 error: `Authentication error. User is not logged in.`,
                 status: 401
