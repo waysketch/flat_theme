@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Toolbox = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    width: 200px;
+    min-width: 200px;
     height: calc(100vh - 1em);
     z-index: 900;
     padding: .5em;
@@ -78,6 +78,7 @@ export const Tab = styled.div`
 `;
 
 export const ToolBoxMenu = styled.div`
+    // TODO handle if this overflows
     padding: .5em;
     border: 1px dotted gray;
 `;
