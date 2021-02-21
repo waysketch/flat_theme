@@ -40,4 +40,11 @@ export const Reset = styled.main`
             outline: 2px dotted ${props => props.theme.color.splash_off}
         }
     }
+
+    svg {
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        user-select: none;
+    }
 `;

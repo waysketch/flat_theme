@@ -6,6 +6,15 @@ import CreateUser from '../CreateUser/CreateUser.jsx';
 export default function Toolbox() {
     // === STATE === //
     const [openToolboxToggle, updateOpenToolboxToggle] = useState(false);
+    const [openTab, updateOpenTab] = useState('none');
+    const [activeComponent, updateActiveComponent] = useState('');
+    const tabs = [
+        { title: "Pages", svg: "file", component: <CreatePage />},
+        { title: "Style", svg: "swatchbook"},
+        { title: "Users", svg: "user_edit", component: <CreateUser />},
+        { title: "Photos", svg: "images"},
+        { title: "Settings", svg: "tools"}
+    ];
 
     // === ON LOAD === //
     useEffect(() => {
@@ -15,6 +24,8 @@ export default function Toolbox() {
 
     // === FUNCTIONS === //
     const closeToolbox = () => {
+        !openToolboxToggle ? updateActiveComponent(tabs[0].component) : updateActiveComponent("");
+        !openToolboxToggle ? updateOpenTab(tabs[0].title) : updateOpenTab('Main Menu');
         updateOpenToolboxToggle(!openToolboxToggle);
     };
 
@@ -22,46 +33,40 @@ export default function Toolbox() {
     return (
         <S.Toolbox isOpen={openToolboxToggle}>
 
-            <div className="toggle">
+            {/* ============ */}
+            {/* SIDE BUTTONS */}
+            {/* ============ */}
+            <S.ToggleBar>
 
                 <S.Tab onClick={closeToolbox} title={openToolboxToggle ? "close" : "open"} open={openToolboxToggle}>
                     {openToolboxToggle ? S.svg.sign_out : S.svg.toolbox}
                 </S.Tab>
+                
+                {/* ========= */}
+                {/* LOAD TABS */}
+                {/* ========= */}
+                {tabs.map( tab => {
+                    return ( 
+                    <S.Tab
+                    key={tab.title}
+                    title={tab.title}
+                    active={openTab === tab.title ? true : false}
+                    open={openToolboxToggle}
+                    onClick={() => { updateOpenTab(tab.title); updateActiveComponent(tab.component);}}
+                    >
+                        {S.svg[tab.svg]}
+                    </S.Tab> );
+                })}
 
-                <S.Tab title="Pages" open={openToolboxToggle}>
-                    {S.svg.file}
-                </S.Tab>
-
-                <S.Tab title="Style" open={openToolboxToggle}>
-                    {S.svg.swatchbook}
-                </S.Tab>
-
-                <S.Tab title="Users" open={openToolboxToggle}>
-                    {S.svg.user_edit}
-                </S.Tab>
-
-                <S.Tab title="Users" open={openToolboxToggle}>
-                    {S.svg.images}
-                </S.Tab>
-
-                <S.Tab title="Settings" open={openToolboxToggle}>
-                    {S.svg.tools}
-                </S.Tab>
-
-            </div>
-
-            <h2>Toolbox!</h2>
-
-            <ul>
-                <li>Create User</li>
-                <li>SAVE</li>
-            </ul>
-            <div>
-                <CreatePage />
-            </div>
-            <div>
-                <CreateUser />
-            </div>
+            </S.ToggleBar>
+            
+            {/* ================ */}
+            {/* WHAT CAN BE SEEN */}
+            {/* ================ */}
+            <S.ToolBoxMenu>
+                {activeComponent}
+            </S.ToolBoxMenu>
+            
         </S.Toolbox>
     )
 }

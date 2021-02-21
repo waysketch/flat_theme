@@ -13,50 +13,36 @@ export const Toolbox = styled.div`
     color: ${props => props.theme.color.background};
     transition: transform 0.7s cubic-bezier(0.68, -0.9, 0.32, 1.6);
     transform: translateX(${props => props.isOpen ? "5em" : "100%"});
+`;
 
-    /* 
-    &:after {
-        position: absolute;
-        top: 0;
-        right: -5em;
-        height: calc(100vh - 1em);
-        width: 5em;
-        content: "";
-    } */
+export const ToggleBar = styled.div`
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 3em;
+    top: 0;
+    left: calc(-3em);
+    color: ${props => props.theme.color.font};
 
-    .toggle {
-        position: absolute;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        width: 3em;
-        top: 0;
-        left: calc(-3em - 2px);
-        color: ${props => props.theme.color.font};
-
-        &:hover {
-            cursor: pointer;
-        }
+    &:hover {
+        cursor: pointer;
     }
 `;
 
 export const Tab = styled.div`
     display: flex;
     justify-content: center;
+    background-color: ${props => props.active ? props.theme.color.font : "none"};
+    color: ${props => props.active ? props.theme.color.splash : props.theme.color.font};
+    opacity: ${props => props.active ? "1" : ".5"};
     align-items: center;
     text-align: center;
     height: ${props => props.open ? "2em" : ".5em"};
     width: ${props => props.open ? "2em" : ".5em"};
     padding: .5em;
     border: 1px dotted ${props => props.theme.color.font};
-    opacity: .5;
-    transition: width .3s .3s, height .3s .6s;
-
-    svg {
-        max-width: 100%;
-        max-height: 100%;
-        user-select: none;
-    }
+    transition: width .3s .3s, height .3s .3s, border-radius .3s .3s;
 
     &:hover {
         opacity: 1;
@@ -69,7 +55,7 @@ export const Tab = styled.div`
     }
 
     &:first-child {
-        border-radius: .5em 0 0 0;
+        border-radius: ${props => props.open ? '.5em 0 0 0' : '.5em 0 0 .5em'};
         height: 2em;
         width: 2em;
 
@@ -89,4 +75,9 @@ export const Tab = styled.div`
     &:nth-child(even) {
         border-bottom: none;
     }
+`;
+
+export const ToolBoxMenu = styled.div`
+    padding: .5em;
+    border: 1px dotted gray;
 `;
