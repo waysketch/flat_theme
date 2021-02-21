@@ -5,6 +5,7 @@ export const Toolbox = styled.div`
     top: 0;
     right: 0;
     min-width: 200px;
+    max-width: calc(100vw - 4em);
     height: calc(100vh - 1em);
     z-index: 900;
     padding: .5em;
@@ -64,10 +65,6 @@ export const Tab = styled.div`
         }
     }
 
-    &:last-child {
-        border-radius: 0 0 0 .5em;
-    }
-
     &:nth-child(2) {
         border-top: 0;
     }
@@ -75,10 +72,21 @@ export const Tab = styled.div`
     &:nth-child(even) {
         border-bottom: none;
     }
+
+    &:last-child {
+        border-radius: 0 0 0 .5em;
+        border-bottom: 1px dotted ${props => props.theme.color.font};
+    }
+`;
+
+export const ToolBoxMenuFrame = styled.div`
+
 `;
 
 export const ToolBoxMenu = styled.div`
-    // TODO handle if this overflows
+    height: calc( 100vh - 2em );
+    width: auto;
     padding: .5em;
     border: 1px dotted gray;
+    overflow-y: auto;
 `;

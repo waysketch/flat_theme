@@ -31,9 +31,9 @@ export default function App() {
         // === 200 === //
         updatePages(pageArray.data);
       })
-      .catch(_ => {
+      .catch( _ => {
         // === NOT 200 === //
-        console.log('Unable to get pages from server in [App.js].');
+        console.log(_);
         dispatch(updateNoDatabase(true));
       })
       .finally(() => {

@@ -11,14 +11,18 @@ if (process.env.NODE_EV !== "production") {
 // === GET PAGES === //
 // ================= //
 
-router.route("/").get((req, res) => {
+router.route("/").get(( _ , res) => {
+    console.log('got it?');
+
     _db
     .find({})
     .then( dbModel => {
         res.json(dbModel);
     })
     .catch( _ => {
-        res.json({
+        console.log("[ERROR][API][PAGES] Unable to reach database.");
+        res.status(500).json({
+            data: "Oops! Something has gone wrong.",
             msg: "Oops! Something has gone wrong."
         })
     });

@@ -2,18 +2,22 @@ import { useState, useEffect } from 'react';
 import * as S from '../../theme';
 import CreatePage from '../CreatePage/CreatePage.jsx';
 import CreateUser from '../CreateUser/CreateUser.jsx';
+import EditStyles from '../EditStyles/EditStyles.jsx';
+import EditPhotos from '../EditPhotos/EditPhotos.jsx';
+import EditSettings from '../EditSettings/EditSettings.jsx';
 
 export default function Toolbox() {
     // === STATE === //
     const [openToolboxToggle, updateOpenToolboxToggle] = useState(false);
     const [openTab, updateOpenTab] = useState('none');
+    const [lastOpenTab, updateLastOpenTab] = useState("");
     const [activeComponent, updateActiveComponent] = useState('');
     const tabs = [
         { title: "Pages", svg: "file", component: <CreatePage />},
-        { title: "Style", svg: "swatchbook"},
+        { title: "Style", svg: "swatchbook", component: <EditStyles />},
         { title: "Users", svg: "user_edit", component: <CreateUser />},
-        { title: "Photos", svg: "images"},
-        { title: "Settings", svg: "tools"}
+        { title: "Photos", svg: "images", component: <EditPhotos />},
+        { title: "Settings", svg: "tools", component: <EditSettings />}
     ];
 
     // === ON LOAD === //
@@ -24,8 +28,16 @@ export default function Toolbox() {
 
     // === FUNCTIONS === //
     const closeToolbox = () => {
-        !openToolboxToggle ? updateActiveComponent(tabs[0].component) : updateActiveComponent("");
-        !openToolboxToggle ? updateOpenTab(tabs[0].title) : updateOpenTab('Main Menu');
+        if (!openToolboxToggle && activeComponent === "") { updateActiveComponent(tabs[0].component) };
+
+        if (!openToolboxToggle && lastOpenTab !== "") {
+            updateOpenTab(lastOpenTab);
+        } else if (!openToolboxToggle && lastOpenTab === ""){
+            updateOpenTab(tabs[0].title);
+        } else {
+            updateOpenTab("");
+        };
+
         updateOpenToolboxToggle(!openToolboxToggle);
     };
 
@@ -42,9 +54,9 @@ export default function Toolbox() {
                     {openToolboxToggle ? S.svg.sign_out : S.svg.toolbox}
                 </S.Tab>
                 
-                {/* ========= */}
-                {/* LOAD TABS */}
-                {/* ========= */}
+                {/* ==== */}
+                {/* TABS */}
+                {/* ==== */}
                 {tabs.map( tab => {
                     return ( 
                     <S.Tab
@@ -52,8 +64,12 @@ export default function Toolbox() {
                     title={tab.title}
                     active={openTab === tab.title ? true : false}
                     open={openToolboxToggle}
-                    onClick={() => { updateOpenTab(tab.title); updateActiveComponent(tab.component);}}
-                    >
+                    onClick={() => { 
+                        updateOpenTab(tab.title);
+                        updateLastOpenTab(tab.title);
+                        updateActiveComponent(tab.component);
+                        if (!openToolboxToggle) { updateOpenToolboxToggle(true) };
+                    }}>
                         {S.svg[tab.svg]}
                     </S.Tab> );
                 })}
