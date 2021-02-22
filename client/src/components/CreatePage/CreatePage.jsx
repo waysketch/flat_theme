@@ -72,11 +72,6 @@ export default function CreatePage() {
 
                 <label htmlFor="nav">Navigation:</label>
                 
-                {/* navMenus.map(navMenu => return options) */}
-                <option value="nav">Menu</option>
-                <option value="footer">Footer</option>
-                <option value="custom1">Custom Menu</option>
-                
                 <label htmlFor="hide_footer">Hide Footer?</label>
                 <input type="checkbox" name="hide_footer"/>
 
@@ -87,27 +82,21 @@ export default function CreatePage() {
                 <S.Button
                     background_color={props => props.theme.palette.darkRed}
                     hover_background_color={props => props.theme.palette.red}
-                    onClick={nuke}
+                    onClick={() => {updateToastData(<p>Feature Not Added Yet</p>)}}
                 >
                     Delete Page
                 </S.Button>
 
-                <S.Button
-                    background_color={props => props.theme.palette.darkRed}
-                    hover_background_color={props => props.theme.palette.red}
-                    onClick={nuke}
-                >
-                    Delete All Pages
-                </S.Button>
+            </S.Frame>
 
+            <S.Frame>
+                <h2>Menu</h2>
+                
+            </S.Frame>
+
+            <S.Frame>
+                <h2>Footer</h2>
             </S.Frame>
         </div>
     )
-}
-
-const nuke = () => {
-    axios.get("/api/pages/nuke")
-    .then( _ => {
-        window.location = "/";
-    });
 }

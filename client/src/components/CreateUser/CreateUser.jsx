@@ -73,7 +73,7 @@ export default function CreateUser() {
 
     return (
         <S.Frame>
-            <h2>User</h2>
+            <h2>Create User</h2>
             <input
                 value={email}
                 onChange={e => updateEmail(e.target.value)}

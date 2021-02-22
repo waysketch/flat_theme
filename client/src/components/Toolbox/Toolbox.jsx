@@ -4,6 +4,7 @@ import CreatePage from '../CreatePage/CreatePage.jsx';
 import CreateUser from '../CreateUser/CreateUser.jsx';
 import EditStyles from '../EditStyles/EditStyles.jsx';
 import EditPhotos from '../EditPhotos/EditPhotos.jsx';
+import EditUser from '../EditUser/EditUser.jsx';
 import EditSettings from '../EditSettings/EditSettings.jsx';
 
 export default function Toolbox() {
@@ -15,7 +16,7 @@ export default function Toolbox() {
     const tabs = [
         { title: "Pages", svg: "file", component: <CreatePage />},
         { title: "Style", svg: "swatchbook", component: <EditStyles />},
-        { title: "Users", svg: "user_edit", component: <CreateUser />},
+        { title: "Users", svg: "user_edit", component: [<CreateUser />, <EditUser />]},
         { title: "Photos", svg: "images", component: <EditPhotos />},
         { title: "Settings", svg: "tools", component: <EditSettings />}
     ];
