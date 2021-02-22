@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as S from '../../theme';
 import CreatePage from '../CreatePage/CreatePage.jsx';
 import CreateUser from '../CreateUser/CreateUser.jsx';
@@ -19,12 +19,6 @@ export default function Toolbox() {
         { title: "Photos", svg: "images", component: <EditPhotos />},
         { title: "Settings", svg: "tools", component: <EditSettings />}
     ];
-
-    // === ON LOAD === //
-    useEffect(() => {
-        // check if user is gold keyed?
-        
-    }, []);
 
     // === FUNCTIONS === //
     const closeToolbox = () => {

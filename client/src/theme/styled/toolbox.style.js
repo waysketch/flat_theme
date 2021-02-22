@@ -79,14 +79,9 @@ export const Tab = styled.div`
     }
 `;
 
-export const ToolBoxMenuFrame = styled.div`
-
-`;
-
 export const ToolBoxMenu = styled.div`
     height: calc( 100vh - 2em );
     width: auto;
     padding: .5em;
-    border: 1px dotted gray;
     overflow-y: auto;
 `;

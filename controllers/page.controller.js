@@ -46,10 +46,9 @@ router.route("/create").post(authenticateUser, (req, res) => {
 // ================== //
 // === DELETE ALL === //
 // ================== //
-router.route("/nuke").post((req, res) => {
-    // === MALL COP === //
-    console.log(req.body);
-    if (process.env.APP_SECRET !== req.body.password) { return res.send('Nice try hacker'); };
+router.route("/nuke").get(authenticateUser,( _ , res) => {
+
+    // TODO: check key
 
     // === DROP IT === //
     _db

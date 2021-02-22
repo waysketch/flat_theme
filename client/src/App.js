@@ -71,10 +71,10 @@ export default function App() {
                 return <Route key={`Page_${index}`} exact path={page.route} render={() => <Page key={page.id} hideFooter={page.hide_footer ?? false} components={page.components} />} />
               })
               :
-              <Fragment>
                 <Route exact path="/setup" render={() => <Setup />} />
+                &&
                 <Route exact path="/" render={() => <NoDatabase />} />
-              </Fragment>
+              
           }
 
           {/* DO NOT CODE BELOW THIS LINE */}

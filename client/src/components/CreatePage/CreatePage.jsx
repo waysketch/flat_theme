@@ -84,7 +84,30 @@ export default function CreatePage() {
                     Create Page
                 </S.SolidButton>
 
+                <S.Button
+                    background_color={props => props.theme.palette.darkRed}
+                    hover_background_color={props => props.theme.palette.red}
+                    onClick={nuke}
+                >
+                    Delete Page
+                </S.Button>
+
+                <S.Button
+                    background_color={props => props.theme.palette.darkRed}
+                    hover_background_color={props => props.theme.palette.red}
+                    onClick={nuke}
+                >
+                    Delete All Pages
+                </S.Button>
+
             </S.Frame>
         </div>
     )
+}
+
+const nuke = () => {
+    axios.get("/api/pages/nuke")
+    .then( _ => {
+        window.location = "/";
+    });
 }

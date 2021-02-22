@@ -14,7 +14,7 @@ export default function NoDatabase() {
     return (
         <Fragment>
             <S.NoDatabase>
-                <h1>No database found</h1>
+                <h1>Site not setup yet</h1>
                 <p>This is a default html page.</p>
                 <div onClick={clickHandler}>press</div>
             </S.NoDatabase>
