@@ -22,6 +22,7 @@ export default function Theme({ children }) {
     // ========== //
     const palette = {
         black: "#000",
+        darkdark: "#1e272e",
         dark: "#2d3436",
         grey: "#596275",
         white: "#fff",
@@ -55,7 +56,7 @@ export default function Theme({ children }) {
             background: darkMode ? palette.dark : palette.light,
 
             primary: darkMode ? palette.dark : palette.light,
-            primary_off: darkMode ? palette.grey : palette.gold,
+            primary_off: darkMode ? palette.darkdark : palette.gold,
 
             secondary: darkMode ? palette.gold : palette.red,
             secondary_off: darkMode ? palette.light : palette.dark,

@@ -37,14 +37,13 @@ export default function Page(props) {
     }, [props.components, props.title, props.hideFooter]);
 
     const hideNavToggle = () => {
-        updateNavWidth((document.getElementById('mobile_nav').clientWidth) + "px");
         updateNavHidden(!navHidden);
     };
 
     return (
-        <S.Wrap hidden={navHidden} navWidth={navWidth}>
+        <S.Wrap hidden={navHidden}>
             <Nav hideNav={hideNavToggle} />
-            <S.Bundle navWidth={navWidth}>
+            <S.Bundle>
                 {/* PAGE VIEW */}
                 <S.Page>
                     {sections.map((section) => {

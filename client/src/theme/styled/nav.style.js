@@ -3,9 +3,17 @@ import styled from 'styled-components';
 export const Nav = styled.nav`
     position: relative;
     display: block;
-    width: fit-content;
-    flex-grow: 1;
+    width: 30vw;
+    background-color: ${props => props.theme.color.background};
     min-height: 100vh;
+
+    @media (max-width: ${props => props.theme.breakpoint.mobile}) {
+        width: 70vw;
+    }
+
+    @media (min-width: ${props => props.theme.breakpoint.desktop}) {
+        display: none;
+    }
 `;
 
 export const NavFrame = styled.div`

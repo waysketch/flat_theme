@@ -7,11 +7,12 @@ const nuke = () => {
         .then(_ => {
             window.location = "/";
         });
-}
+};
 
 export default function EditSettings() {
     return (
         <Fragment>
+
             <S.Frame>
                 <h2>Settings</h2>
                 <S.SolidButton
@@ -22,6 +23,7 @@ export default function EditSettings() {
                     Delete All Pages
                 </S.SolidButton>
             </S.Frame>
+
             <S.Frame>
                 <h2>Analytics</h2>
 
@@ -41,6 +43,7 @@ export default function EditSettings() {
                 <p>OGImage</p>
                 <p>robots.txt</p>
             </S.Frame>
+
         </Fragment>
-    )
-}
+    );
+};
