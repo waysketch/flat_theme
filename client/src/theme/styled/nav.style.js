@@ -40,7 +40,7 @@ export const NavFrame = styled.div`
     position: sticky;
     top: 0;
     right: 0;
-    z-index: 900;
+    z-index: 800;
 `;
 
 export const MobileTab = styled.div`

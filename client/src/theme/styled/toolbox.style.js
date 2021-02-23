@@ -4,16 +4,16 @@ export const Toolbox = styled.div`
     position: fixed;
     top: 0;
     right: 0;
-    min-width: 200px;
+    min-width: 250px;
     max-width: calc(100vw - 4em);
     height: calc(100vh - 1em);
-    z-index: 900;
     padding: .5em;
     border-right: 5em solid ${props => props.theme.color.font};
     background-color: ${props => props.theme.color.font};
     color: ${props => props.theme.color.background};
     transition: transform 0.7s cubic-bezier(0.68, -0.9, 0.32, 1.6);
     transform: translateX(${props => props.isOpen ? "5em" : "100%"});
+    z-index: 900;
 `;
 
 export const ToggleBar = styled.div`
@@ -76,6 +76,10 @@ export const Tab = styled.div`
     &:last-child {
         border-radius: 0 0 0 .5em;
         border-bottom: 1px dotted ${props => props.theme.color.font};
+    }
+
+    @media (max-width: ${props => props.theme.breakpoint.mobile}) {
+        background-color: ${props => props.active ? props.theme.color.font : "rgba(0, 0, 0, .67)"};
     }
 `;
 
