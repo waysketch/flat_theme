@@ -10,8 +10,10 @@ if (process.env.NODE_EV !== "production") {
 // ==================== //
 
 const express = require('express');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('./utils/passport');
+const mongoose = require('mongoose');
 const path = require('path');
 const routes = require('./controllers');
 
@@ -31,22 +33,45 @@ const PORT = process.env.PORT || 8080; // server port NOT the website port.
 // === Middleware === //
 // ================== //
 
-app.use(morgan('dev')); // lets us see our routes when we ping the server.
-
 app.use(
-    bodyParser.urlencoded({
-        extended: false,
+    express.urlencoded({
+        extended: true,
     })
 );
 
-app.use(bodyParser.json());
+app.use(express.json());
+    
+// =============== //
+// === MongoDB === //
+// =============== //
 
-// ============================= //
-// === Routing & Controllers === //
-// ============================= //
+try {
+    mongoose.connect(
+        process.env.MONGODB_URI,
+        { useNewUrlParser: true, useUnifiedTopology: true },
+        () => {
+            console.log("[MONGODB][DATABASE] Connected.");
+        },
+    );
+} catch (error) {
+    console.log("[MONGODB][DATABASE] Could not connect to the Database. [HINT] Check URI name and address in .env file or server env.");
+};
 
-app.use(routes);
+app.use(
+  session({
+    secret: process.env.APP_SECRET,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
+// ======================== //
+// === Passport / Login === //
+// ======================== //
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ================== //
 // === Static App === //
@@ -54,7 +79,13 @@ app.use(routes);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
-}
+};
+
+// ============================= //
+// === Routing & Controllers === //
+// ============================= //
+
+app.use(routes);
 
 // ================= //
 // === React App === //

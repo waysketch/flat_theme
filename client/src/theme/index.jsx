@@ -1,27 +1,23 @@
-import styled from 'styled-components';
+// =================================== //
+// === EXPORT FROM ./styled FOLDER === //
+// =================================== //
+export { Nav, MobileTab, NavFrame, MobileNav, DesktopNav } from './styled/nav.style.js';
+export { Toolbox, Tab, ToggleBar, ToolBoxMenu } from './styled/toolbox.style.js';
+export { Footer, FooterSection, Copywrite } from './styled/footer.style.js';
+export { Button, SolidButton, AddButton } from './styled/button.style.js';
+export { NoDatabase, Setup } from './styled/something_broke.style.js';
+export { Frame, FlexFrame, WireFrame } from './styled/frame.style.js';
+export { Shadow, NavShadow } from './styled/shadow.style.js';
+export { Page, Wrap, Bundle } from './styled/page.style.js';
+export { Toast, TinyToast } from './styled/toast.style';
+export { Toggle, Dot } from './styled/toggle.style.js';
+export { Row, RowRight } from './styled/row.style.js';
+export { Loading } from './styled/loading.style.js';
+export { Login } from './styled/login.style.js';
+export * as svg from './styled/svg.js';
 
-// ============== //
-//   COMPONENTS   //
-// ============== //
-export const Root = styled.section`
-    font-family: ${props => props.theme.font.body};
-    width: 100vw;
-    height: 100vh;
-    color: ${props => props.theme.color.font};
-    background-color: ${props => props.theme.color.primary};
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-weight: 900;
-        font-family: ${props => props.theme.color.primary}
-    }
-`;
-
-export const Frame = styled.div`
-    max-width: ${props => props.theme.max.width};
-    margin: auto;
-`;
+// ========================================= //
+// === EXPORT FROM ./styled/block FOLDER === //
+// ========================================= //
+export { Header, HalfHeader, ButtonHeader } from './styled/block/header.style.js';
+export { Deck, Card } from './styled/block/deck.style.js';

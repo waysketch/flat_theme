@@ -1,96 +1,93 @@
-import { ThemeProvider } from "styled-components";
-import styled from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { useSelector } from 'react-redux';
 import './reset.css';
-
-// FILL FROM DATABASE //
-let darkMode = true;
-
-// ========= //
-//   FONTS   //
-// ========= //
-let headerUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Roboto+Slab:wght@100;400;800;900&display=swap';
-let bodyUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&display=swap';
-
-const headerFamily = "Roboto Slab, serif";
-const bodyFamily = "Open Sans, sans-serif";
-const splashFamily = "Roboto Slab, serif";
-
-// ========== //
-//   COLORS   //
-// ========== //
-const palette = {
-    black:"#000",
-    dark: "#2d3436",
-    grey: "#596275",
-    white: "#fff",
-    light: "#dfe6e9",
-    blue: "#3498db",
-    darkBlue: "#2980b9",
-    green: "#2ecc71",
-    darkGreen: "#27ae60",
-    red: "#e74c3c",
-    darkRed: "#c0392b",
-    orange: "#f39c12",
-    yellow: "#f6e58d",
-    darkYellow: "#f6e58d",
-    gold: "#ccae62",
-
-    // rad colors
-    fogDog: "#f06d06",
-}
-
-// ================ //
-//   THEME OBJECT   //
-// ================ //
-const theme = {
-
-    color: {
-        font: darkMode ? palette.light : palette.dark,
-        background: darkMode ? palette.dark : palette.light,
-
-        primary: darkMode ? palette.dark : palette.light,
-        primary_off: darkMode ? palette.grey : palette.fogDog,
-
-        secondary: darkMode ? palette.gold : palette.red,
-        secondary_off: darkMode ? palette.light : palette.dark,
-
-        splash: palette.gold,
-    },
-
-    breakpoint: {
-        mobile: "767px",
-        tablet: "768px",
-        desktop: "1040px",
-    },
-
-    font: {
-        header: headerFamily,
-        body: bodyFamily,
-        splash: splashFamily,
-    },
-
-    max: {
-        width: "1200px",
-    },
-};
-
-// ========= //
-//   RESET   //
-// ========= //
-const StyledRoot = styled.div`
-    @import url(${props => props.foo});
-    @import url(${props => props.bar});
-`;
 
 // ============= //
 //   THEME JSX   //
 // ============= //
-const Theme = ({children}) => (
-    <StyledRoot foo={headerUrl} bar={bodyUrl}>
+export default function Theme({ children }) {
+
+    // FILL FROM DATABASE //
+    const darkMode = useSelector(state => state.darkMode);
+
+    // ========= //
+    //   FONTS   //
+    // ========= //
+    const headerFamily = "Open Sans, sans-serif";
+    const bodyFamily = "'Roboto Slab', serif";
+    const splashFamily = "'Roboto Slab', serif";
+
+    // ========== //
+    //   COLORS   //
+    // ========== //
+    const palette = {
+        black: "#000",
+        darkdark: "#1e272e",
+        dark: "#2d3436",
+        grey: "#596275",
+        white: "#fff",
+        light: "#dfe6e9",
+        blue: "#3498db",
+        darkBlue: "#2980b9",
+        green: "#2ecc71",
+        darkGreen: "#27ae60",
+        red: "#e74c3c",
+        darkRed: "#c0392b",
+        orange: "#f39c12",
+        yellow: "#f6e58d",
+        darkYellow: "#f6e58d",
+        gold: "#ccae62",
+
+        // rad colors
+        fogDog: "#f06d06",
+    }
+
+    // ================ //
+    //   THEME OBJECT   //
+    // ================ //
+    const theme = {
+
+        darkMode,
+
+        palette: palette,
+
+        color: {
+            font: darkMode ? palette.light : palette.dark,
+            background: darkMode ? palette.dark : palette.light,
+
+            primary: darkMode ? palette.dark : palette.light,
+            primary_off: darkMode ? palette.darkdark : palette.gold,
+
+            secondary: darkMode ? palette.gold : palette.red,
+            secondary_off: darkMode ? palette.light : palette.dark,
+
+            splash: darkMode ? palette.darkBlue : palette.gold,
+            splash_off: darkMode ? palette.blue : palette.red,
+        },
+
+        breakpoint: {
+            mobile: "767px",
+            tablet: "768px",
+            desktop: "1040px",
+        },
+
+        font: {
+            header: headerFamily,
+            body: bodyFamily,
+            splash: splashFamily,
+        },
+
+        max: {
+            width: "1200px",
+        },
+    };
+
+    // ============== //
+    // === RETURN === //
+    // ============== //
+    return (
         <ThemeProvider theme={theme}>
             {children}
         </ThemeProvider>
-    </StyledRoot>
-);
-
-export default Theme;
+    )
+};

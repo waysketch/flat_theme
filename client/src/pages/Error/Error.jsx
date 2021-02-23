@@ -1,13 +1,14 @@
-import React from 'react';
+import Header from '../../blocks/Header/Header.jsx';
+import Footer from '../../components/Footer/Footer.jsx';
 import * as S from '../../theme';
-import Header from '../../components/Header/Header.jsx';
 
 export default function Error() {
     return (
-        <S.Root>
-            <S.Frame>
-                <Header title="404 Error" />
-            </S.Frame>
-        </S.Root>
+        <S.Bundle>
+            <S.Page>
+                <Header data={{title: "404 Error"}} />
+            </S.Page>
+            <Footer />
+        </S.Bundle>
     )
 };
