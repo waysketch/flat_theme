@@ -1,5 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '../../components/Footer/Footer.jsx';
+import Nav from '../../components/Nav/Nav.jsx';
 import loadable from '@loadable/component';
 import * as S from '../../theme';
 
@@ -7,6 +8,8 @@ export default function Page(props) {
     // === HOOKS === //
     const [sections, updateSections] = useState([]);
     const [hideFooter, updateHideFooter] = useState(false);
+    const [navHidden, updateNavHidden] = useState(false);
+    const [navWidth, updateNavWidth] = useState(0);
 
     // === ON LOAD === //
     useEffect(() => {
@@ -33,22 +36,30 @@ export default function Page(props) {
 
     }, [props.components, props.title, props.hideFooter]);
 
+    const hideNavToggle = () => {
+        updateNavWidth((document.getElementById('mobile_nav').clientWidth) + "px");
+        updateNavHidden(!navHidden);
+    };
+
     return (
-        <Fragment>
-            {/* PAGE VIEW */}
-            <S.Page>
-            {sections.map( (section, index) => {
-                return section;
-            })}
-            </S.Page>
-            {/* FOOTER */}
-            {
-                hideFooter
-                ?
-                ""
-                :
-                <Footer />
-            }
-        </Fragment>
-    )
-}
+        <S.Wrap hidden={navHidden} navWidth={navWidth}>
+            <Nav hideNav={hideNavToggle} />
+            <S.Bundle navWidth={navWidth}>
+                {/* PAGE VIEW */}
+                <S.Page>
+                    {sections.map((section) => {
+                        return section;
+                    })}
+                </S.Page>
+                {/* FOOTER */}
+                {
+                    hideFooter
+                        ?
+                        ""
+                        :
+                        <Footer />
+                }
+            </S.Bundle>
+        </S.Wrap>
+    );
+};
