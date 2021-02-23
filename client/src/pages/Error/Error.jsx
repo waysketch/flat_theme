@@ -1,10 +1,14 @@
-import { Fragment } from 'react';
 import Header from '../../components/Header/Header.jsx';
+import Footer from '../../components/Footer/Footer.jsx';
+import * as S from '../../theme';
 
 export default function Error() {
     return (
-        <Fragment>
-            <Header data={{title: "404 Error"}} />
-        </Fragment>
+        <S.Bundle>
+            <S.Page>
+                <Header data={{title: "404 Error"}} />
+            </S.Page>
+            <Footer />
+        </S.Bundle>
     )
 };

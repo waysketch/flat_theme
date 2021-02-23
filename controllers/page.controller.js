@@ -12,8 +12,6 @@ if (process.env.NODE_EV !== "production") {
 // ================= //
 
 router.route("/").get(( _ , res) => {
-    console.log('got it?');
-
     _db
     .find({})
     .then( dbModel => {

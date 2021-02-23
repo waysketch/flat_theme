@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import * as S from '../../theme';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateToastData } from '../../redux/actions';
+import axios from 'axios';
+import * as S from '../../theme';
 
 export default function CreateUser() {
     // === STATE === //

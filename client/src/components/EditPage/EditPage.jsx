@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateToastData } from '../../redux/actions';
 
-export default function CreatePage() {
+export default function EditPage() {
     // === STATE === //
     const dispatch = useDispatch();
     const [pageName, updatePageName] = useState("");
@@ -79,13 +79,13 @@ export default function CreatePage() {
                     Create Page
                 </S.SolidButton>
 
-                <S.Button
+                <S.SolidButton
                     background_color={props => props.theme.palette.darkRed}
                     hover_background_color={props => props.theme.palette.red}
                     onClick={() => {updateToastData(<p>Feature Not Added Yet</p>)}}
                 >
                     Delete Page
-                </S.Button>
+                </S.SolidButton>
 
             </S.Frame>
 

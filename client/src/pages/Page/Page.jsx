@@ -9,7 +9,6 @@ export default function Page(props) {
     const [sections, updateSections] = useState([]);
     const [hideFooter, updateHideFooter] = useState(false);
     const [navHidden, updateNavHidden] = useState(false);
-    const [navWidth, updateNavWidth] = useState(0);
 
     // === ON LOAD === //
     useEffect(() => {

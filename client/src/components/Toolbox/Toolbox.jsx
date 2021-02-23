@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as S from '../../theme';
-import CreatePage from '../CreatePage/CreatePage.jsx';
+import EditPage from '../EditPage/EditPage.jsx';
 import CreateUser from '../CreateUser/CreateUser.jsx';
 import EditStyles from '../EditStyles/EditStyles.jsx';
 import EditPhotos from '../EditPhotos/EditPhotos.jsx';
@@ -14,9 +14,9 @@ export default function Toolbox() {
     const [lastOpenTab, updateLastOpenTab] = useState("");
     const [activeComponent, updateActiveComponent] = useState('');
     const tabs = [
-        { title: "Pages", svg: "file", component: <CreatePage />},
+        { title: "Pages", svg: "file", component: <EditPage />},
         { title: "Style", svg: "swatchbook", component: <EditStyles />},
-        { title: "Users", svg: "user_edit", component: [<CreateUser />, <EditUser />]},
+        { title: "Users", svg: "user_edit", component: [<CreateUser key={0} />, <EditUser key={1} />]},
         { title: "Photos", svg: "images", component: <EditPhotos />},
         { title: "Settings", svg: "tools", component: <EditSettings />}
     ];
@@ -52,10 +52,10 @@ export default function Toolbox() {
                 {/* ==== */}
                 {/* TABS */}
                 {/* ==== */}
-                {tabs.map( tab => {
+                {tabs.map( (tab, index) => {
                     return ( 
                     <S.Tab
-                    key={tab.title}
+                    key={index}
                     title={tab.title}
                     active={openTab === tab.title ? true : false}
                     open={openToolboxToggle}
