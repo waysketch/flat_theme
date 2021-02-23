@@ -9,6 +9,13 @@ export const Reset = styled.main`
     background-color: ${props => props.theme.color.background};
     overflow-x: hidden;
 
+    * {
+        &::selection {
+            color: ${props => props.theme.palette.white};
+            background-color: ${props => props.theme.color.splash};
+        }
+    }
+
     h1,
     h2,
     h3,
@@ -19,12 +26,6 @@ export const Reset = styled.main`
         font-family: ${props => props.theme.font.header};
     }
 
-    * {
-        &::selection {
-            color: ${props => props.theme.palette.white};
-            background-color: ${props => props.theme.color.splash};
-        }
-    }
 
     a {
         color: ${props => props.theme.color.splash_off};
@@ -38,6 +39,14 @@ export const Reset = styled.main`
 
         &:focus {
             outline: 2px dotted ${props => props.theme.color.splash_off}
+        }
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            padding-right: .5em;
         }
     }
 

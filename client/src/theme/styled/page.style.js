@@ -19,10 +19,13 @@ export const Wrap = styled.div`
 
     @media (min-width: ${props => props.theme.breakpoint.desktop}) {
         width: 100vw;
+        flex-wrap: wrap;
         transform: none;
     }
 `;
 
 export const Bundle = styled.div`
+    position: relative;
     width: 100vw;
+    z-index: 100;
 `;

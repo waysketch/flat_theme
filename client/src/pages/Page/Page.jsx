@@ -44,6 +44,7 @@ export default function Page(props) {
         <S.Wrap hidden={navHidden}>
             <Nav hideNav={hideNavToggle} />
             <S.Bundle>
+                <S.NavShadow onClick={() => updateNavHidden(false)} show={navHidden} />
                 {/* PAGE VIEW */}
                 <S.Page>
                     {sections.map((section) => {
