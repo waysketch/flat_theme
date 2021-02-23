@@ -31,12 +31,32 @@ router.route("/").get(( _ , res) => {
 // =================== //
 
 router.route("/create").post(authenticateUser, (req, res) => {
+
+    // === TODO: FILTER === //
+    let user = "Unautherized User";
+    if (req.body.email){
+        user = req.body.email;
+    };
+
+    const cleanedPageData = {
+        name: req.body.name ? req.body.name : 'Untitled',
+        route: req.body.route,
+        nav: req.body.name ? req.body.name : [],
+        hide_footer: req.body.hide_footer ? req.body.hide_footer : false,
+        components: req.body.components ? req.body.components : [],
+        last_updated: {
+        by: user,
+        date: Date.now(),
+        }
+    };
+
     _db
-        .create(req.body)
+        .create(cleanedPageData)
         .then(dbModel => {
             res.json(dbModel);
         })
         .catch(error => {
+            console.log(error);
             res.status(422).json(error);
         });
 });

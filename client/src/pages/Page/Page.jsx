@@ -18,7 +18,7 @@ export default function Page(props) {
 
             switch (component.name) {
                 case "Header":
-                    const Header = loadable(() => import('../../components/Header/Header.jsx'));
+                    const Header = loadable(() => import('../../blocks/Header/Header.jsx'));
                     renderThese.push(<Header key={component.name + index} data={component.data} />);
                     break;
                 case "Footer":

@@ -24,7 +24,6 @@ export const ToggleBar = styled.div`
     width: 3em;
     top: 0;
     left: calc(-3em);
-    color: ${props => props.theme.color.font};
 
     &:hover {
         cursor: pointer;
@@ -35,7 +34,7 @@ export const Tab = styled.div`
     display: flex;
     justify-content: center;
     background-color: ${props => props.active ? props.theme.color.font : "none"};
-    color: ${props => props.active ? props.theme.color.splash : props.theme.color.font};
+    color: ${props => props.active ? props.theme.color.splash : props.theme.palette.white};
     opacity: ${props => props.active ? "1" : ".5"};
     align-items: center;
     text-align: center;
