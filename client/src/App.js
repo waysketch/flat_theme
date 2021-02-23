@@ -19,7 +19,19 @@ export default function App() {
   const [loading, updateLoading] = useState(true);
   const [pages, updatePages] = useState([]);
   const isLoggedIn = useSelector(state => state.isLoggedIn);
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user);
+
+  // === LOAD THESE IF DATABASE IS BAD === //
+  const noDatabase = [
+    {
+      route: "/",
+      page: <NoDatabase />
+    },
+    {
+      route: "/setup",
+      page: <Setup />
+    }
+  ];
 
   // =============== //
   // === ON LOAD === //
@@ -31,9 +43,9 @@ export default function App() {
         // === 200 === //
         updatePages(pageArray.data);
       })
-      .catch(_ => {
+      .catch( _ => {
         // === NOT 200 === //
-        console.log('Unable to get pages from server in [App.js].');
+        console.log(_);
         dispatch(updateNoDatabase(true));
       })
       .finally(() => {
@@ -71,10 +83,9 @@ export default function App() {
                 return <Route key={`Page_${index}`} exact path={page.route} render={() => <Page key={page.id} hideFooter={page.hide_footer ?? false} components={page.components} />} />
               })
               :
-              <Fragment>
-                <Route exact path="/setup" render={() => <Setup />} />
-                <Route exact path="/" render={() => <NoDatabase />} />
-              </Fragment>
+              noDatabase.map((page, index) => {
+                return <Route key={index} exact path={page.route} render={() => page.page} />
+              })
           }
 
           {/* DO NOT CODE BELOW THIS LINE */}

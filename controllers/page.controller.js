@@ -11,14 +11,16 @@ if (process.env.NODE_EV !== "production") {
 // === GET PAGES === //
 // ================= //
 
-router.route("/").get((req, res) => {
+router.route("/").get(( _ , res) => {
     _db
     .find({})
     .then( dbModel => {
         res.json(dbModel);
     })
     .catch( _ => {
-        res.json({
+        console.log("[ERROR][API][PAGES] Unable to reach database.");
+        res.status(500).json({
+            data: "Oops! Something has gone wrong.",
             msg: "Oops! Something has gone wrong."
         })
     });
@@ -29,12 +31,32 @@ router.route("/").get((req, res) => {
 // =================== //
 
 router.route("/create").post(authenticateUser, (req, res) => {
+
+    // === TODO: FILTER === //
+    let user = "Unautherized User";
+    if (req.body.email){
+        user = req.body.email;
+    };
+
+    const cleanedPageData = {
+        name: req.body.name ? req.body.name : 'Untitled',
+        route: req.body.route,
+        nav: req.body.name ? req.body.name : [],
+        hide_footer: req.body.hide_footer ? req.body.hide_footer : false,
+        components: req.body.components ? req.body.components : [],
+        last_updated: {
+        by: user,
+        date: Date.now(),
+        }
+    };
+
     _db
-        .create(req.body)
+        .create(cleanedPageData)
         .then(dbModel => {
             res.json(dbModel);
         })
         .catch(error => {
+            console.log(error);
             res.status(422).json(error);
         });
 });
@@ -42,10 +64,9 @@ router.route("/create").post(authenticateUser, (req, res) => {
 // ================== //
 // === DELETE ALL === //
 // ================== //
-router.route("/nuke").post((req, res) => {
-    // === MALL COP === //
-    console.log(req.body);
-    if (process.env.APP_SECRET !== req.body.password) { return res.send('Nice try hacker'); };
+router.route("/nuke").get(authenticateUser,( _ , res) => {
+
+    // TODO: check key
 
     // === DROP IT === //
     _db

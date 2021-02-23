@@ -1,20 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as S from '../../theme';
-import CreatePage from '../CreatePage/CreatePage.jsx';
+import EditPage from '../EditPage/EditPage.jsx';
 import CreateUser from '../CreateUser/CreateUser.jsx';
+import EditStyles from '../EditStyles/EditStyles.jsx';
+import EditPhotos from '../EditPhotos/EditPhotos.jsx';
+import EditUser from '../EditUser/EditUser.jsx';
+import EditSettings from '../EditSettings/EditSettings.jsx';
 
 export default function Toolbox() {
     // === STATE === //
     const [openToolboxToggle, updateOpenToolboxToggle] = useState(false);
-
-    // === ON LOAD === //
-    useEffect(() => {
-        // check if user is gold keyed?
-        
-    }, []);
+    const [openTab, updateOpenTab] = useState('none');
+    const [lastOpenTab, updateLastOpenTab] = useState("");
+    const [activeComponent, updateActiveComponent] = useState('');
+    const tabs = [
+        { title: "Pages", svg: "file", component: <EditPage />},
+        { title: "Style", svg: "swatchbook", component: <EditStyles />},
+        { title: "Users", svg: "user_edit", component: [<CreateUser key={0} />, <EditUser key={1} />]},
+        { title: "Photos", svg: "images", component: <EditPhotos />},
+        { title: "Settings", svg: "tools", component: <EditSettings />}
+    ];
 
     // === FUNCTIONS === //
     const closeToolbox = () => {
+        if (!openToolboxToggle && activeComponent === "") { updateActiveComponent(tabs[0].component) };
+
+        if (!openToolboxToggle && lastOpenTab !== "") {
+            updateOpenTab(lastOpenTab);
+        } else if (!openToolboxToggle && lastOpenTab === ""){
+            updateOpenTab(tabs[0].title);
+        } else {
+            updateOpenTab("");
+        };
+
         updateOpenToolboxToggle(!openToolboxToggle);
     };
 
@@ -22,46 +40,44 @@ export default function Toolbox() {
     return (
         <S.Toolbox isOpen={openToolboxToggle}>
 
-            <div className="toggle">
+            {/* ============ */}
+            {/* SIDE BUTTONS */}
+            {/* ============ */}
+            <S.ToggleBar>
 
                 <S.Tab onClick={closeToolbox} title={openToolboxToggle ? "close" : "open"} open={openToolboxToggle}>
                     {openToolboxToggle ? S.svg.sign_out : S.svg.toolbox}
                 </S.Tab>
+                
+                {/* ==== */}
+                {/* TABS */}
+                {/* ==== */}
+                {tabs.map( (tab, index) => {
+                    return ( 
+                    <S.Tab
+                    key={index}
+                    title={tab.title}
+                    active={openTab === tab.title ? true : false}
+                    open={openToolboxToggle}
+                    onClick={() => { 
+                        updateOpenTab(tab.title);
+                        updateLastOpenTab(tab.title);
+                        updateActiveComponent(tab.component);
+                        if (!openToolboxToggle) { updateOpenToolboxToggle(true) };
+                    }}>
+                        {S.svg[tab.svg]}
+                    </S.Tab> );
+                })}
 
-                <S.Tab title="Pages" open={openToolboxToggle}>
-                    {S.svg.file}
-                </S.Tab>
-
-                <S.Tab title="Style" open={openToolboxToggle}>
-                    {S.svg.swatchbook}
-                </S.Tab>
-
-                <S.Tab title="Users" open={openToolboxToggle}>
-                    {S.svg.user_edit}
-                </S.Tab>
-
-                <S.Tab title="Users" open={openToolboxToggle}>
-                    {S.svg.images}
-                </S.Tab>
-
-                <S.Tab title="Settings" open={openToolboxToggle}>
-                    {S.svg.tools}
-                </S.Tab>
-
-            </div>
-
-            <h2>Toolbox!</h2>
-
-            <ul>
-                <li>Create User</li>
-                <li>SAVE</li>
-            </ul>
-            <div>
-                <CreatePage />
-            </div>
-            <div>
-                <CreateUser />
-            </div>
+            </S.ToggleBar>
+            
+            {/* ================ */}
+            {/* WHAT CAN BE SEEN */}
+            {/* ================ */}
+            <S.ToolBoxMenu>
+                {activeComponent}
+            </S.ToolBoxMenu>
+            
         </S.Toolbox>
     )
 }

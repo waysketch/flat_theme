@@ -10,10 +10,7 @@ if (process.env.NODE_EV !== "production") {
 // ==================== //
 
 const express = require('express');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
 const session = require('express-session');
-var cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('./utils/passport');
 const mongoose = require('mongoose');
@@ -36,18 +33,13 @@ const PORT = process.env.PORT || 8080; // server port NOT the website port.
 // === Middleware === //
 // ================== //
 
-app.use(morgan('dev')); // lets us see our routes when we ping the server.
-app.use(cookieParser("jimmy"));
-const cookieExpirationDate = new Date();
-const cookieExpirationDays = 365;
-cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
 app.use(
-    bodyParser.urlencoded({
+    express.urlencoded({
         extended: true,
     })
 );
 
-app.use(bodyParser.json());
+app.use(express.json());
     
 // =============== //
 // === MongoDB === //
@@ -67,14 +59,10 @@ try {
 
 app.use(
   session({
-    secret: "jimmy",
+    secret: process.env.APP_SECRET,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-	    httpOnly: true,
-	    expires: cookieExpirationDate // use expires instead of maxAge
-	}
+    resave: false,
+    saveUninitialized: false
   })
 );
 
@@ -82,8 +70,8 @@ app.use(
 // === Passport / Login === //
 // ======================== //
 
-app.use(passport.initialize())
-app.use(passport.session()) // will call the deserializeUser
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ================== //
 // === Static App === //

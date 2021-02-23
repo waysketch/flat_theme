@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { updateToastData } from '../../redux/actions';
 
-export default function CreatePage() {
+export default function EditPage() {
     // === STATE === //
     const dispatch = useDispatch();
     const [pageName, updatePageName] = useState("");
@@ -21,12 +21,34 @@ export default function CreatePage() {
             route: `/${pageUrl}`,
             nav: ["header"],
             hide_footer: false,
-            components: [{
-                name: "Header",
-                data: {
-                    title: `${pageName} Page`
+            components: [
+                {
+                    name: "Header",
+                    data: {
+                        title: `${pageName} Page`
+                    }
+                },
+                
+                {
+                    name: "Deck",
+                    data: {
+                        cards: [
+                            {
+                                title: "Card One",
+                                body: "hello world"
+                            },
+                            {
+                                title: "Card Two",
+                                body: "just type anything here"
+                            },
+                            {
+                                title: "Flat Card",
+                                body: "Ok no more typing"
+                            }
+                        ]
+                    }
                 }
-            }]
+            ]
         };
 
         // === SUBMIT USER === //
@@ -72,11 +94,6 @@ export default function CreatePage() {
 
                 <label htmlFor="nav">Navigation:</label>
                 
-                {/* navMenus.map(navMenu => return options) */}
-                <option value="nav">Menu</option>
-                <option value="footer">Footer</option>
-                <option value="custom1">Custom Menu</option>
-                
                 <label htmlFor="hide_footer">Hide Footer?</label>
                 <input type="checkbox" name="hide_footer"/>
 
@@ -84,6 +101,23 @@ export default function CreatePage() {
                     Create Page
                 </S.SolidButton>
 
+                <S.SolidButton
+                    background_color={props => props.theme.palette.darkRed}
+                    hover_background_color={props => props.theme.palette.red}
+                    onClick={() => {updateToastData(<p>Feature Not Added Yet</p>)}}
+                >
+                    Delete Page
+                </S.SolidButton>
+
+            </S.Frame>
+
+            <S.Frame>
+                <h2>Menu</h2>
+                
+            </S.Frame>
+
+            <S.Frame>
+                <h2>Footer</h2>
             </S.Frame>
         </div>
     )

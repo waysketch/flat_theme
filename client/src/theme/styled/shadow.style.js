@@ -14,3 +14,7 @@ export const Shadow = styled.div`
     z-index: 0;
     cursor: pointer;
 `;
+
+export const NavShadow = styled(Shadow)`
+    background-color: none;
+`;

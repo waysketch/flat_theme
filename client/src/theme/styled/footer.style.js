@@ -5,9 +5,8 @@ export const Footer = styled.footer`
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-end;
-    height: 200px;
-    outline: 1px solid ${props => props.theme.color.font};
-    background-color: ${props => props.theme.color.primary};
+    height: 199px;
+    border-top: 1px solid ${props => props.theme.color.font};
     overflow: hidden;
 `;
 
