@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Nav = styled.nav`
     width: fit-content;
+    z-index: 900;
 
     @media (min-width: ${props => props.theme.breakpoint.desktop}) {
         width: 100vw;
@@ -26,7 +27,10 @@ export const MobileNav = styled.div`
 
 export const DesktopNav = styled.div`
     display: none;
-
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
     ul {
         display: flex;
     }

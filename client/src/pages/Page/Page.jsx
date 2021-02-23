@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../../components/Footer/Footer.jsx';
 import Nav from '../../components/Nav/Nav.jsx';
-import loadable from '@loadable/component';
+import { Builder } from './Builder.jsx';
 import * as S from '../../theme';
 
 export default function Page(props) {
@@ -14,26 +14,14 @@ export default function Page(props) {
     useEffect(() => {
         const renderThese = [];
 
-        props.components.forEach((component, index) => {
-
-            switch (component.name) {
-                case "Header":
-                    const Header = loadable(() => import('../../blocks/Header/Header.jsx'));
-                    renderThese.push(<Header key={component.name + index} data={component.data} />);
-                    break;
-                case "Footer":
-                    const Footer = loadable(() => import('../../components/Footer/Footer'));
-                    renderThese.push(<Footer key={component.name + index} />);
-                    break;
-                default:
-                    console.log(`Could not render ${component.name} at index ${index} in the component tree.`);
-                    break;
-            };
+        props.components.forEach((block, index) => {
+            Builder(block, index, renderThese);
         });
+
         updateHideFooter(props.hideFooter)
         updateSections(renderThese);
 
-    }, [props.components, props.title, props.hideFooter]);
+    }, [props.components, props.hideFooter]);
 
     const hideNavToggle = () => {
         updateNavHidden(!navHidden);

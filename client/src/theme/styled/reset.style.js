@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const Reset = styled.main`
     position: relative;
     font-family: ${props => props.theme.font.body};
-    width: 100vw;
-    height: 100vh;
+    max-width: 100vw;
     color: ${props => props.theme.color.font};
     background-color: ${props => props.theme.color.background};
     overflow-x: hidden;
@@ -26,13 +25,13 @@ export const Reset = styled.main`
         font-family: ${props => props.theme.font.header};
     }
 
-
     a {
         color: ${props => props.theme.color.splash_off};
     }
 
     input {
         display: block;
+        background-color: white;
         border: none;
         padding: 2px 4px;
         margin-bottom: 2px;

@@ -21,12 +21,34 @@ export default function EditPage() {
             route: `/${pageUrl}`,
             nav: ["header"],
             hide_footer: false,
-            components: [{
-                name: "Header",
-                data: {
-                    title: `${pageName} Page`
+            components: [
+                {
+                    name: "Header",
+                    data: {
+                        title: `${pageName} Page`
+                    }
+                },
+                
+                {
+                    name: "Deck",
+                    data: {
+                        cards: [
+                            {
+                                title: "Card One",
+                                body: "hello world"
+                            },
+                            {
+                                title: "Card Two",
+                                body: "just type anything here"
+                            },
+                            {
+                                title: "Flat Card",
+                                body: "Ok no more typing"
+                            }
+                        ]
+                    }
                 }
-            }]
+            ]
         };
 
         // === SUBMIT USER === //

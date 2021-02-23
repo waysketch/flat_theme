@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Frame = styled.section`
     max-width: ${props => props.theme.max.width};
+    margin-bottom: 2em;
     margin-left: auto;
     margin-right: auto;
 `;

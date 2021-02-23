@@ -8,8 +8,8 @@ Header.defaultProps = {
 
 export default function Header(props) {
     return (
-        <S.Frame>
+        <S.HalfHeader>
             <h1>{props.data.title}</h1>
-        </S.Frame>
+        </S.HalfHeader>
     )
 }

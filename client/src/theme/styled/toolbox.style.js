@@ -12,7 +12,7 @@ export const Toolbox = styled.div`
     background-color: ${props => props.theme.color.font};
     color: ${props => props.theme.color.background};
     transition: transform 0.7s cubic-bezier(0.68, -0.9, 0.32, 1.6);
-    transform: translateX(${props => props.isOpen ? "5em" : "100%"});
+    transform: translateX(${props => props.isOpen ? "5em" : "101%"});
     z-index: 900;
 `;
 
@@ -34,7 +34,7 @@ export const Tab = styled.div`
     display: flex;
     justify-content: center;
     background-color: ${props => props.active ? props.theme.color.font : "none"};
-    color: ${props => props.active ? props.theme.color.splash : props.theme.palette.white};
+    color: ${props => props.active ? props.theme.color.splash : props.theme.color.font};
     opacity: ${props => props.active ? "1" : ".5"};
     align-items: center;
     text-align: center;
