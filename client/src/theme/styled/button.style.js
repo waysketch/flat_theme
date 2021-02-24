@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const Button = styled.p`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: .5em 1em;
     border: 1px solid ${props => props.background_color ? props.background_color : props.theme.color.font};
     border-radius: 5px;
@@ -8,6 +13,11 @@ export const Button = styled.p`
     font-weight: 900;
     width: fit-content;
     user-select: none;
+
+    svg {
+        height: 1em;
+        width: 1em;
+    }
 
     &:hover {
         cursor: pointer;

@@ -37,7 +37,7 @@ export const Reset = styled.main`
         margin-bottom: 2px;
 
         &:focus {
-            outline: 2px dotted ${props => props.theme.color.splash_off}
+            outline: 2px dashed ${props => props.theme.color.splash_off};
         }
     }
 

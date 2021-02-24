@@ -9,6 +9,8 @@ export default function EditPage() {
     const dispatch = useDispatch();
     const [pageName, updatePageName] = useState("");
     const [pageUrl, updatePageUrl] = useState("");
+    const [hideFooter, updateHideFooter] = useState(false);
+    const [navOptions, updateNavOptions] = useState([]);
 
     const submitPageHandler = () => {
         // === ROUTE === //
@@ -16,11 +18,10 @@ export default function EditPage() {
 
         // === BODY === //
         const page = {
-            user: "waysketch@gmail.com",
             name: pageName,
             route: `/${pageUrl}`,
-            nav: ["header"],
-            hide_footer: false,
+            nav: navOptions,
+            hide_footer: hideFooter,
             components: [
                 {
                     name: "Header",
@@ -48,7 +49,11 @@ export default function EditPage() {
                         ]
                     }
                 }
-            ]
+            ],
+            last_updated: {
+                by: "sketch@waysketch.com",
+                date: new Date()
+            }
         };
 
         // === SUBMIT USER === //
@@ -95,7 +100,7 @@ export default function EditPage() {
                 <label htmlFor="nav">Navigation:</label>
                 
                 <label htmlFor="hide_footer">Hide Footer?</label>
-                <input type="checkbox" name="hide_footer"/>
+                <input onChange={() => updateHideFooter(!hideFooter)} type="checkbox" name="hide_footer"/>
 
                 <S.SolidButton onClick={submitPageHandler}>
                     Create Page
@@ -112,13 +117,29 @@ export default function EditPage() {
             </S.Frame>
 
             <S.Frame>
-                <h2>Menu</h2>
-                
+                <h2>Search Page</h2>
+                <S.Search>
+                    <input type="text" placeholder="Search" />
+                    <S.SolidButton>{S.svg.search}</S.SolidButton>
+                </S.Search>
             </S.Frame>
 
             <S.Frame>
-                <h2>Footer</h2>
+                <h2>Edit Page</h2>
+                <S.SubMenu>
+                    <h4>Page Title</h4>
+                    <input type="text" placeholder="Page Name" />
+
+                    <h4>Link Locations</h4>
+                    <p>[ ] Menu</p>
+                    <p>[ ] Footer</p>
+
+                    <h4>Hide Footer?</h4>
+                    <p>[ ]</p>
+                </S.SubMenu>
             </S.Frame>
+
+
         </div>
     )
 }

@@ -28,29 +28,3 @@ const pageSchema = new Schema({
 const Page = mongoose.model("Page", pageSchema);
 
 module.exports = Page;
-
-// ==================== //
-// === EXAMPLE DATA === //
-// ==================== //
-/*
-{
-    id: "p2021HP",
-    name: "Home",
-    route: "/",
-    nav: ["header", "footer"],
-    components: [
-      {
-        name: "Header",
-        data: {
-          title: "Home Page"
-        }
-      },
-      {
-        name: "Footer",
-        data: {
-          empty: true
-        }
-      }
-    ]
-  },
-*/
