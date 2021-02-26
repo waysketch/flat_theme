@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Shadow = styled.div`
     display: ${props => props.show ? "block" : "none"};
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -11,7 +11,7 @@ export const Shadow = styled.div`
     padding: 0 !important;
     margin: 0 !important;
     background-color: rgba(0,0,0,.6);
-    z-index: 0;
+    z-index: 800;
     cursor: pointer;
 `;
 

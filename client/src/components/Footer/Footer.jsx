@@ -11,8 +11,23 @@ export default function Footer() {
     const dispatch = useDispatch();
     const darkMode = useSelector(state => state.darkMode);
     const isLoggedIn = useSelector(state => state.isLoggedIn);
+    const footerMenu = useSelector(state => state.footerMenu);
 
     // === FUNCTIONS === //
+    const createMenu = () => {
+        if (footerMenu.length < 1) {
+           return <li> <Link to="/">Home</Link> </li>;
+        } else {
+            return footerMenu.map((link, index) => {
+                return (
+                    <li key={index}>
+                        <Link to={link.route}>{link.name}</Link>
+                    </li>
+                );
+            });
+        };
+    };
+
     const toggleDarkMode = () => {
         dispatch( updateDarkMode(!darkMode) );
     };
@@ -50,14 +65,14 @@ export default function Footer() {
 
                 {/* NAVIGATION */}
                 <S.FooterSection>
-                    <Link to="/setup">Setup Page</Link>
+                    {createMenu()}
                 </S.FooterSection>
 
                 {/* TOOLS */}
                 <S.FooterSection>
 
                     <S.RowRight>
-                        <Toggle on={darkMode} toggleFunction={toggleDarkMode} iconOn={S.svg.moon} iconOff={S.svg.sun}/>
+                        <Toggle on={!darkMode} toggleFunction={toggleDarkMode} iconOff={S.svg.moon} iconOn={S.svg.sun} />
                     </S.RowRight>
 
                     <S.RowRight>

@@ -5,7 +5,7 @@ export const Reset = styled.main`
     font-family: ${props => props.theme.font.body};
     max-width: 100vw;
     color: ${props => props.theme.color.font};
-    background-color: ${props => props.theme.color.background};
+    background-color: ${props => props.darkMode ? props.theme.color.font : props.theme.color.background};
     overflow-x: hidden;
 
     * {
@@ -37,7 +37,7 @@ export const Reset = styled.main`
         margin-bottom: 2px;
 
         &:focus {
-            outline: 2px dotted ${props => props.theme.color.splash_off}
+            outline: 2px dashed ${props => props.theme.color.splash_off};
         }
     }
 
@@ -50,7 +50,7 @@ export const Reset = styled.main`
     }
 
     svg {
-        width: 100%;
+        width: 1em;
         max-width: 100%;
         max-height: 100%;
         user-select: none;

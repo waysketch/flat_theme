@@ -1,23 +1,32 @@
 import Social from '../Social/Social.jsx';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import * as S from '../../theme';
 
 export default function Nav(props) {
+    const menu = useSelector(state => state.menu);
+    
+    const createMenu = () => {
+        if (menu.length < 1) {
+           return <li> <Link to="/">Home</Link> </li>;
+        } else {
+            return menu.map((link, index) => {
+                return (
+                    <li key={index}>
+                        <Link to={link.route}>{link.name}</Link>
+                    </li>
+                );
+            });
+        };
+    };
+
     // === RETURN === //
     return (
         <S.Nav >
             <S.DesktopNav>
                 <S.Frame>
                     <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Another</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Yet Another</Link>
-                        </li>
+                        {createMenu()}
                     </ul>
                 </S.Frame>
             </S.DesktopNav>
@@ -35,15 +44,7 @@ export default function Nav(props) {
             </div>
 
                     <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Another</Link>
-                        </li>
-                        <li>
-                            <Link to="/">Yet Another</Link>
-                        </li>
+                        {createMenu()}
                     </ul>
 
                     <div>
