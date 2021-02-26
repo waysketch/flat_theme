@@ -1,15 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
+import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { updateNoDatabase, updateLogin, updateUser, updateMenu, updateFooter, updateSettings, updateDarkMode } from './redux/actions';
+import Setup from './pages/Setup/Setup.jsx';
+import Toast from './components/Toast/Toast.jsx';
 import Page from './pages/Page/Page.jsx';
 import Error from './pages/Error/Error.jsx';
 import NoDatabase from './pages/NoDatabase/NoDatabase.jsx';
-import Setup from './pages/Setup/Setup.jsx';
-import { Loading } from './theme';
-import axios from 'axios';
 import Toolbox from './components/Toolbox/Toolbox.jsx';
-import { useDispatch, useSelector } from "react-redux";
-import { updateNoDatabase, updateLogin, updateUser } from './redux/actions';
-import Toast from './components/Toast/Toast.jsx';
+import { Loading } from './theme';
 
 export default function App() {
   // ============= //
@@ -37,32 +37,83 @@ export default function App() {
   // === ON LOAD === //
   // =============== //
   useEffect(() => {
+
+    // =================== //
+    // === BUILD MENUS === //
+    // =================== //
+    const addLinksToMenu = (pageArray) => {
+
+      if (pageArray.length < 1) return;
+
+      const mainMenu = [];
+      const footerMenu = [];
+
+      pageArray.forEach(page => {
+        const menuItem = {
+          name: page.name,
+          route: page.route
+        };
+
+        if (page.nav.length === 0) { return; };
+        page.nav.forEach(menu => {
+          switch (menu) {
+            case "header":
+              mainMenu.push(menuItem);
+              break;
+            case "footer":
+              footerMenu.push(menuItem);
+              break;
+            default:
+              console.log(`Unable to add menu item. Menu ${menu} wasnt found.`);
+              break;
+          }
+        });
+        dispatch(updateMenu(mainMenu));
+        dispatch(updateFooter(footerMenu));
+      });
+    };
+
+    // ================= //
     // === GET PAGES === //
+    // ================= //
     axios.get('/api/pages')
       .then(pageArray => {
         // === 200 === //
         updatePages(pageArray.data);
+        addLinksToMenu(pageArray.data);
       })
-      .catch( _ => {
+      .catch(_ => {
         // === NOT 200 === //
-        console.log(_);
         dispatch(updateNoDatabase(true));
       })
       .finally(() => {
-        axios.get("/auth/user").then( res => {
-          if (!!res.data.user) {
-            dispatch(updateLogin(true));
-            dispatch(updateUser(res.data.user));
-          } else {
-            dispatch(updateLogin(false));
-            dispatch(updateUser(null));
-          };
-        })
-        .finally( () => {
-          // === remove page loading === //
-          updateLoading(false);
-        });
+        // === SETTINGS === //
+        axios.get('/api/settings')
+          .then(settings => {
+            dispatch(updateSettings(settings.data));
+            dispatch(updateDarkMode(settings.data.darkMode));
+          })
+          .catch(err => {
+            console.log(err.msg);
+          })
+          .finally(() => {
+            // === AUTO LOGIN === //
+            axios.get("/auth/user").then(res => {
+              if (!!res.data.user) {
+                dispatch(updateLogin(true));
+                dispatch(updateUser(res.data.user));
+              } else {
+                dispatch(updateLogin(false));
+                dispatch(updateUser(null));
+              };
+            })
+              .finally(() => {
+                // === remove page loading === //
+                updateLoading(false);
+              });
+          });
       });
+
   }, [dispatch]);
 
   // ============== //
@@ -91,19 +142,19 @@ export default function App() {
           {/* DO NOT CODE BELOW THIS LINE */}
           <Route render={() => <Error />} />
         </Switch>
-        
-          {/* TOOLBOX */}
-          {
-            isLoggedIn && user?.verified && user.key === "GOLD"
-              ?
-              <Toolbox />
-              :
-              ""
-          }
 
-          {/* TOAST */}
-          {<Toast />}
-          
+        {/* TOOLBOX */}
+        {
+          isLoggedIn && user?.verified && user.key === "GOLD"
+            ?
+            <Toolbox />
+            :
+            ""
+        }
+
+        {/* TOAST */}
+        {<Toast />}
+
       </BrowserRouter>
 
     </Fragment>

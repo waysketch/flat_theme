@@ -1,16 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Footer from '../../components/Footer/Footer.jsx';
 import Nav from '../../components/Nav/Nav.jsx';
 import { Builder } from './Builder.jsx';
+import Add from '../../components/Add/Add.jsx';
 import * as S from '../../theme';
 
 export default function Page(props) {
+    // ============= //
     // === HOOKS === //
+    // ============= //
     const [sections, updateSections] = useState([]);
-    const [hideFooter, updateHideFooter] = useState(false);
     const [navHidden, updateNavHidden] = useState(false);
+    const isLoggedIn = useSelector(state => state.isLoggedIn);
 
+    // =============== //
     // === ON LOAD === //
+    // =============== //
     useEffect(() => {
         const renderThese = [];
 
@@ -18,15 +24,22 @@ export default function Page(props) {
             Builder(block, index, renderThese);
         });
 
-        updateHideFooter(props.hideFooter)
+        if (isLoggedIn) renderThese.push(<Add />);
+        if (!props.hideFooter) renderThese.push(<Footer />);
         updateSections(renderThese);
 
-    }, [props.components, props.hideFooter]);
+    }, [props.components, props.hideFooter, isLoggedIn]);
 
+    // ================= //
+    // === FUNCTIONS === //
+    // ================= //
     const hideNavToggle = () => {
         updateNavHidden(!navHidden);
     };
 
+    // ================= //
+    // === COMPONENT === //
+    // ================= //
     return (
         <S.Wrap hidden={navHidden}>
             <Nav hideNav={hideNavToggle} />
@@ -38,14 +51,6 @@ export default function Page(props) {
                         return section;
                     })}
                 </S.Page>
-                {/* FOOTER */}
-                {
-                    hideFooter
-                        ?
-                        ""
-                        :
-                        <Footer />
-                }
             </S.Bundle>
         </S.Wrap>
     );

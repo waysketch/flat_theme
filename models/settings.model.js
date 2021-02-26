@@ -5,10 +5,12 @@ const Schema = mongoose.Schema;
 // === SCHEMA === //
 // ============== //
 const settingsSchema = new Schema({
-    defaultMode: { type: Boolean, default: true, required: false },
-    GTM: { type: String, required: false },
-    UAID: { type: String, required: false },
-    date: { type: Date, default: Date.now } // must be a Date object
+    mod: { type: String, default: "Settings", unique: true },
+    darkMode: { type: Boolean, default: true, required: false },
+    gtm: { type: String, required: false },
+    uaid: { type: String, required: false },
+    primaryUser: { type: String },
+    date: { type: Date, default: Date.now }
 });
 
 // ============== //

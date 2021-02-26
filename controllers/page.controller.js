@@ -32,16 +32,22 @@ router.route("/").get(( _ , res) => {
 
 router.route("/create").post(authenticateUser, (req, res) => {
 
+    let route = req.body.route;
+
     // === TODO: FILTER === //
     let user = "Unautherized User";
     if (req.body.email){
         user = req.body.email;
     };
 
+    while (route.charAt(0) === "/") {
+        route = route.substring(1);
+    }
+
     const cleanedPageData = {
         name: req.body.name ? req.body.name : 'Untitled',
-        route: req.body.route,
-        nav: req.body.name ? req.body.name : [],
+        route: `/${route}`,
+        nav: req.body.nav ? req.body.nav : [],
         hide_footer: req.body.hide_footer ? req.body.hide_footer : false,
         components: req.body.components ? req.body.components : [],
         last_updated: {
@@ -49,6 +55,8 @@ router.route("/create").post(authenticateUser, (req, res) => {
         date: Date.now(),
         }
     };
+
+    console.log(cleanedPageData);
 
     _db
         .create(cleanedPageData)

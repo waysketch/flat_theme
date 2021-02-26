@@ -44,6 +44,10 @@ export const Tab = styled.div`
     border: 1px dotted ${props => props.theme.color.font};
     transition: width .3s .3s, height .3s .3s, border-radius .3s .3s;
 
+    svg {
+        width: 100% !important;
+    }
+
     &:hover {
         opacity: 1;
         color: ${props => props.theme.color.splash};

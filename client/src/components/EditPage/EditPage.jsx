@@ -19,7 +19,7 @@ export default function EditPage() {
         // === BODY === //
         const page = {
             name: pageName,
-            route: `/${pageUrl}`,
+            route: pageUrl,
             nav: navOptions,
             hide_footer: hideFooter,
             components: [
@@ -73,9 +73,11 @@ export default function EditPage() {
         });
     }
 
+    // ============== //
     // === RETURN === //
+    // ============== //
     return (
-        <div>
+        <S.Frame>
             <h2>Create Page</h2>
             <S.Frame>
                 
@@ -97,21 +99,17 @@ export default function EditPage() {
                     />
                 </p>
 
-                <label htmlFor="nav">Navigation:</label>
-                
+                <p>Navigation:</p>
+                <label htmlFor="add_to_menu">Main Menu</label>
+                <input onChange={() => navOptions.indexOf('header') === -1 ? updateNavOptions([...navOptions,'header']) : updateNavOptions(navOptions.filter(menu => menu !== 'header'))} type="checkbox" name="add_to_menu" />
+                <label htmlFor="add_to_footer">Footer</label>
+                <input onChange={() => navOptions.indexOf('footer') === -1 ? updateNavOptions([...navOptions,'footer']) : updateNavOptions(navOptions.filter(menu => menu !== 'footer'))} type="checkbox" name="add_to_footer" />
+
                 <label htmlFor="hide_footer">Hide Footer?</label>
                 <input onChange={() => updateHideFooter(!hideFooter)} type="checkbox" name="hide_footer"/>
 
                 <S.SolidButton onClick={submitPageHandler}>
                     Create Page
-                </S.SolidButton>
-
-                <S.SolidButton
-                    background_color={props => props.theme.palette.darkRed}
-                    hover_background_color={props => props.theme.palette.red}
-                    onClick={() => {updateToastData(<p>Feature Not Added Yet</p>)}}
-                >
-                    Delete Page
                 </S.SolidButton>
 
             </S.Frame>
@@ -136,10 +134,18 @@ export default function EditPage() {
 
                     <h4>Hide Footer?</h4>
                     <p>[ ]</p>
+                    
+                    <S.SolidButton
+                    background_color={props => props.theme.palette.darkRed}
+                    hover_background_color={props => props.theme.palette.red}
+                    onClick={() => {updateToastData(<p>Feature Not Added Yet</p>)}}
+                >
+                    Delete Page
+                </S.SolidButton>
                 </S.SubMenu>
             </S.Frame>
 
 
-        </div>
+        </S.Frame>
     )
 }

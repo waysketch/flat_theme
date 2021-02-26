@@ -2,7 +2,7 @@
 
 export const updateNoDatabase = bool => {
     return {
-        type: 'TOGGLE',
+        type: 'UPDATE_NODATABASE',
         payload: bool
     };
 };

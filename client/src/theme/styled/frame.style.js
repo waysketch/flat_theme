@@ -36,3 +36,13 @@ export const SubMenu = styled.div`
     padding: .5em;
     margin: .5em auto;
 `;
+
+export const DashedFrame = styled(Frame)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 2px dashed ${props => props.theme.color.splash_off};
+    border-radius: .5em;
+    margin: 0 auto;
+`;

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import * as S from '../../theme';
 
 export default function EditStyles() {
-    const darkMode = useSelector(state => state.darkMode);
+    const darkMode = useSelector(state => state.settings.darkMode);
     const palette = [
         "#000",
         "#1e272e",

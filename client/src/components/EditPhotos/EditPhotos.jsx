@@ -2,7 +2,7 @@ import * as S from '../../theme';
 
 export default function EditPhotos() {
     return (
-        <div>
+        <S.Frame>
             <h2>Photos</h2>
 
             <S.SolidButton>
@@ -15,7 +15,6 @@ export default function EditPhotos() {
             >
                 Delete
             </S.SolidButton>
-
-        </div>
+        </S.Frame>
     )
 }

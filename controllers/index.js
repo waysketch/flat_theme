@@ -5,6 +5,7 @@ const loginController = require('./login.controller.js');
 const pageController = require('./page.controller.js');
 const emailController = require('./email.controller.js');
 const authController = require('./auth.controller.js');
+const settingsController = require('./settings.controller.js');
 
 router.use("/api/test", testController);
 
@@ -17,5 +18,7 @@ router.use('/api/pages', pageController);
 router.use('/api/email', emailController), pageController;
 
 router.use('/auth', authController);
+
+router.use('/api/settings', settingsController);
 
 module.exports = router;

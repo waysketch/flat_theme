@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import * as S from '../../theme';
 import EditPage from '../EditPage/EditPage.jsx';
+import EditMenu from '../EditMenu/EditMenu.jsx';
 import CreateUser from '../CreateUser/CreateUser.jsx';
 import EditStyles from '../EditStyles/EditStyles.jsx';
 import EditPhotos from '../EditPhotos/EditPhotos.jsx';
@@ -15,6 +16,7 @@ export default function Toolbox() {
     const [activeComponent, updateActiveComponent] = useState('');
     const tabs = [
         { title: "Pages", svg: "file", component: <EditPage />},
+        { title: "Menu", svg: "dots", component: <EditMenu />},
         { title: "Style", svg: "swatchbook", component: <EditStyles />},
         { title: "Users", svg: "user_edit", component: [<CreateUser key={0} />, <EditUser key={1} />]},
         { title: "Photos", svg: "images", component: <EditPhotos />},

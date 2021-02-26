@@ -21,7 +21,7 @@ export const Dot = styled.div`
     border-radius: 50%;
     color: ${props => props.theme.darkMode ? props.theme.color.font : props.theme.color.splash};
     background-color: ${props => props.theme.color.primary};
-    transform: translateX(${props => props.toggledOn ? "1px" : "1.5em"});
+    transform: translateX(${props => props.toggledOn ? "1.5em" : "1px"});
     transition: transform .2s;
 
     svg {

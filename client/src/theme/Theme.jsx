@@ -8,7 +8,7 @@ import './reset.css';
 export default function Theme({ children }) {
 
     // FILL FROM DATABASE //
-    const darkMode = useSelector(state => state.darkMode);
+    const darkMode = useSelector(state => state?.darkMode ? state.darkMode : false);
 
     // ========= //
     //   FONTS   //

@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import * as S from '../../theme';
 
-Toggle.defaultProps = {
-    toggleFunction: () => { console.log("Toggle is not set up to do anything.") },
-    iconOn: "",
-    iconOff: "",
-    on: true
-}
+// Toggle.defaultProps = {
+//     toggleFunction: () => { console.log("Toggle is not set up to do anything.") },
+//     iconOn: "",
+//     iconOff: "",
+//     on: false
+// }
 
 export default function Toggle(props) {
     // === HOOK === //
-    const [toggle, updateToggle] = useState(props.on ? true : false);
+    const [toggle, updateToggle] = useState(props.on);
 
     // === Functions === //
     const toggleClickedHandler = () => {
