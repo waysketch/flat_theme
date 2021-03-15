@@ -21,7 +21,9 @@ export default function App() {
   const isLoggedIn = useSelector(state => state.isLoggedIn);
   const user = useSelector(state => state.user);
 
+  // ===================================== //
   // === LOAD THESE IF DATABASE IS BAD === //
+  // ===================================== //
   const noDatabase = [
     {
       route: "/",
@@ -64,7 +66,7 @@ export default function App() {
               footerMenu.push(menuItem);
               break;
             default:
-              console.log(`Unable to add menu item. Menu ${menu} wasnt found.`);
+              console.log(`Unable to add menu item. Menu ${menu} was not found.`);
               break;
           }
         });

@@ -61,6 +61,9 @@ router.route("/create").post(authenticateUser, (req, res) => {
     _db
         .create(cleanedPageData)
         .then(dbModel => {
+
+            //TODO update sitemap and robots.txt
+
             res.json(dbModel);
         })
         .catch(error => {
