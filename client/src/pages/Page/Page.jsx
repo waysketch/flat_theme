@@ -57,17 +57,31 @@ export default function Page(props) {
     // ================= //
     return (
         <S.Wrap hidden={navHidden}>
+
+            {/* =========== */}
+            {/* === NAV === */}
+            {/* =========== */}
             <Nav hideNav={hideNavToggle} />
+
             <S.Bundle>
                 <S.NavShadow onClick={() => updateNavHidden(false)} show={navHidden} />
-                {/* PAGE VIEW */}
+
+                {/* ================= */}
+                {/* === PAGE VIEW === */}
+                {/* ================= */}
                 <S.Page>
                     {sections.map((section, index) => {
                         return (
-                        <section className="todo_make_this_a_theme_component" index={index} key={index}>
-                            { isLoggedIn && !section?.type?.name?.toString().match(/^(F|f)ooter|(A|a)dd$/) ? <div>{S.svg.trash}</div> : "" }
-                            {section}
-                        </section>
+
+                            // ============ //
+                            // === NOTE ================================================================================================= //
+                            // === RegEx will prevent a user from having a trash can on components they should not be able to remove. === //
+                            // ========================================================================================================== //
+
+                            <section className="todo_make_this_a_theme_component" index={index} key={index}>
+                                { isLoggedIn && !section?.type?.name?.toString().match(/^(F|f)ooter|(A|a)dd$/) ? <div>{S.svg.trash}</div> : "" }
+                                {section}
+                            </section>
                         );
                     })}
                 </S.Page>
