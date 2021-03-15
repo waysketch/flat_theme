@@ -26,6 +26,12 @@ export default function Login() {
             password
         })
             .then( _ => {
+
+                if (_.err) {
+                    console.log("Bad data");
+                    return;
+                };
+
                 const user = {
                     username: _.data.user.local.username ? _.data.user.local.username : _.data.user.email,
                     key: _.data.user.key ? _.data.user.key : "WOOD",

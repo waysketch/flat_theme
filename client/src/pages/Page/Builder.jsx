@@ -12,7 +12,12 @@ export const Builder = (block, index, addBlockToThisArray) => {
             const Deck = loadable(() => import('../../blocks/Deck/Deck.jsx'));
             addBlockToThisArray.push(<Deck key={block.name + index} data={block.data} />);
             break;
-
+        
+        case "Blank":
+            const Blank = loadable(() => import('../../blocks/Blank/Blank.jsx'));
+            addBlockToThisArray.push(<Blank key={block.name + index} data={block.data} />);
+            break;
+            
         default:
             console.log(`Could not render ${block.name} at index ${index} in the component tree.`);
             break;

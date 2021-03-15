@@ -5,6 +5,8 @@ function initialize(passport, getUserByEmail, getUserById) {
     const authenticateUser = (email, password, done) => {
         const user = getUserByEmail(email);
 
+        console.log('passport.config.js');
+
         if (!user) {
             return done(null, false, { msg: "Username or password incorrect"});
         };
@@ -23,6 +25,7 @@ function initialize(passport, getUserByEmail, getUserById) {
 
     passport.use(new localStrategy( {email} ), authenticateUser)
     passport.serializeUser((user, done) => {
+        console.log('passport.config.js')
         return done(null, user.id);
     });
 

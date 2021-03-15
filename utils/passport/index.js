@@ -9,13 +9,14 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
     console.log("DESERIALIZEUSER");
+
 	User.findOne(
 		{ _id: id },
 		(err, user) => {
 			console.log("GOT USER BY ID");
-			done(null, user)
+			done(null, user);
 		}
-	)
+	);
 })
 
 // ==== Register Strategies ==== //
