@@ -20,7 +20,7 @@ const allReducers = combineReducers({
     toast: toast_reducer,
     menu: menu_reducer,
     footerMenu: footer_reducer,
-    components: components_reducer,
+    components: components_reducer
 });
 
 export default allReducers;

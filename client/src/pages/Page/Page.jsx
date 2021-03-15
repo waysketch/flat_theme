@@ -21,15 +21,22 @@ export default function Page(props) {
     // === FUNCTIONS === //
     // ================= //
     const buildBlocks = () => {
-        // TODO currently this refreshes the whole page.
-        // Maybe have the Builder skip already built components?
-        
+
+        dispatch(updateComponents(props.components));
+        updateComponentList(props.components);
+
         const renderThese = [];
 
-        components.forEach((block, index) => {
-            Builder(block, index, renderThese);
-        });
-
+        if (components.length < 1) {
+            props.components.forEach((block, index) => {
+                Builder(block, index, renderThese);
+            });
+        } else {
+            components.forEach((block, index) => {
+                Builder(block, index, renderThese);
+            });
+        };
+        
         if (isLoggedIn) renderThese.push(<Add buildBlocks={buildBlocks} />);
         if (!props.hideFooter) renderThese.push(<Footer />);
 
@@ -43,11 +50,7 @@ export default function Page(props) {
     // =============== //
     // === ON LOAD === //
     // =============== //
-    useEffect(() => {
-        dispatch(updateComponents(props.components));
-        updateComponentList(props.components);
-        buildBlocks();
-    }, [props.components,isLoggedIn]);
+    useEffect(buildBlocks, [components, isLoggedIn, !props.hideFooter, props.components, props.Footer]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // ================= //
     // === COMPONENT === //
@@ -60,7 +63,12 @@ export default function Page(props) {
                 {/* PAGE VIEW */}
                 <S.Page>
                     {sections.map((section, index) => {
-                        return <section className="todo_replace_this_class" key={index}>{section}</section>;
+                        return (
+                        <section className="todo_make_this_a_theme_component" index={index} key={index}>
+                            { isLoggedIn && !section?.type?.name?.toString().match(/^(F|f)ooter|(A|a)dd$/) ? <div>{S.svg.trash}</div> : "" }
+                            {section}
+                        </section>
+                        );
                     })}
                 </S.Page>
             </S.Bundle>
