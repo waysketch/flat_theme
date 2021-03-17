@@ -2,13 +2,12 @@ import styled from 'styled-components';
 
 export const Frame = styled.section`
     max-width: ${props => props.theme.max.width};
-    margin-bottom: 2em;
-    margin-left: auto;
-    margin-right: auto;
+    margin: ${props => props.margin ? `${props.margin}` : "auto auto 2em auto"};
 `;
 
 export const FlexFrame = styled(Frame)`
     width: 100%;
+    margin-bottom: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -45,4 +44,8 @@ export const DashedFrame = styled(Frame)`
     border: 2px dashed ${props => props.theme.color.splash_off};
     border-radius: .5em;
     margin: 0 auto;
+`;
+
+export const Section = styled.section`
+    position: relative;
 `;

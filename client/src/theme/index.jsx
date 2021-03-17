@@ -1,11 +1,11 @@
 // =================================== //
 // === EXPORT FROM ./styled FOLDER === //
 // =================================== //
+export { Frame, FlexFrame, WireFrame, DashedFrame, SubMenu, Section } from './styled/frame.style.js';
 export { Nav, MobileTab, NavFrame, MobileNav, DesktopNav } from './styled/nav.style.js';
+export { Button, SolidButton, AddButton, DeleteButton } from './styled/button.style.js';
 export { Toolbox, Tab, ToggleBar, ToolBoxMenu } from './styled/toolbox.style.js';
-export { Frame, FlexFrame, WireFrame, DashedFrame, SubMenu } from './styled/frame.style.js';
 export { Footer, FooterSection, Copywrite } from './styled/footer.style.js';
-export { Button, SolidButton, AddButton } from './styled/button.style.js';
 export { NoDatabase, Setup } from './styled/something_broke.style.js';
 export { Shadow, NavShadow } from './styled/shadow.style.js';
 export { Page, Wrap, Bundle } from './styled/page.style.js';

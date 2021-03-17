@@ -42,3 +42,17 @@ export const SolidButton = styled(Button)`
 export const AddButton = styled(Button)`
 
 `;
+
+export const DeleteButton = styled.div`
+    position: absolute;
+    top: 0;
+    left: 1em;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: translateY(4px);
+    }
+`;
