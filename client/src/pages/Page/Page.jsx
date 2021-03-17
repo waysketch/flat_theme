@@ -22,7 +22,6 @@ export default function Page(props) {
     // === FUNCTIONS === //
     // ================= //
     const buildBlocks = () => {
-        console.log('building');
         
         dispatch(updateComponents(props.components));
         updateComponentList(props.components);

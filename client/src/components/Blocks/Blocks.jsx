@@ -9,22 +9,17 @@ export default function Blocks(props) {
     const dispatch = useDispatch();
     const components = useSelector(state => state.components);
     
-    // =================== //
-    // === Blank Block === //
-    // =================== //
-    const addHTMLCSSJS_Block = () => {
+    
+    const buildABlockFactory = (blockName, blockData) => {
 
-        const foo = {
-            name: "Blank",
-            data: ""
+        const tempBlock = {
+            name: `${blockName}`,
+            data: blockData ?? [],
         };
 
-        const bar = components;
-        bar.push(foo);
+        components.push(tempBlock);
 
-        console.log(bar);
-
-        dispatch(updateComponents(bar));
+        dispatch(updateComponents(components));
         dispatch(updateToastVisible(false));
         props.buildBlocks();
     };
@@ -33,13 +28,16 @@ export default function Blocks(props) {
     // === RETURN === //
     // ============== //
     return (
-        <div>
-            Block Options
+        <S.Frame>
+            <h1>Block Options</h1>
             
+            <S.Button onClick={() => buildABlockFactory("Deck")}>
+                Add a Deck
+            </S.Button>
 
-            <S.Button onClick={addHTMLCSSJS_Block}>
+            <S.Button onClick={() => buildABlockFactory("Blank")}>
                 Add A Default Block
             </S.Button>
-        </div>
+        </S.Frame>
     )
 }

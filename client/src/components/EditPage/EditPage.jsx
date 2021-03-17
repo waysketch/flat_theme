@@ -34,26 +34,6 @@ export default function EditPage() {
                     data: {
                         title: `${pageName} Page`
                     }
-                },
-                
-                {
-                    name: "Deck",
-                    data: {
-                        cards: [
-                            {
-                                title: "Card One",
-                                body: "hello world"
-                            },
-                            {
-                                title: "Card Two",
-                                body: "just type anything here"
-                            },
-                            {
-                                title: "Flat Card",
-                                body: "Ok no more typing"
-                            }
-                        ]
-                    }
                 }
             ],
             last_updated: {
