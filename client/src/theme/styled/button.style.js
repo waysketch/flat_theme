@@ -47,6 +47,7 @@ export const DeleteButton = styled.div`
     position: absolute;
     top: 0;
     left: 1em;
+    z-index: 900;
 
     &:hover {
         cursor: pointer;

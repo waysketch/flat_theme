@@ -8,6 +8,7 @@ export { Toolbox, Tab, ToggleBar, ToolBoxMenu } from './styled/toolbox.style.js'
 export { Footer, FooterSection, Copywrite } from './styled/footer.style.js';
 export { NoDatabase, Setup } from './styled/something_broke.style.js';
 export { Shadow, NavShadow } from './styled/shadow.style.js';
+export { JumboSection } from './styled/block/jumbo.style.js';
 export { Page, Wrap, Bundle } from './styled/page.style.js';
 export { Toast, TinyToast } from './styled/toast.style';
 export { Toggle, Dot } from './styled/toggle.style.js';

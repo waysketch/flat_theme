@@ -10,7 +10,7 @@ import * as S from '../../theme';
 
 export default function Page(props) {
     // ============= //
-    // === HOOKS === //
+    // === STATE === //
     // ============= //
     const dispatch = useDispatch();
     const [sections, updateSections] = useState([]);

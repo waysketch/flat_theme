@@ -22,6 +22,11 @@ export const Builder = (block, index, addBlockToThisArray) => {
             const Blank = loadable(() => import('../../blocks/Blank/Blank.jsx'));
             addBlockToThisArray.push(<Blank key={block.name + index} data={block.data} />);
             break;
+
+        case "Jumbo":
+            const Jumbo = loadable(() => import('../../blocks/Jumbo/Jumbo.jsx'));
+            addBlockToThisArray.push(<Jumbo key={block.name + index} data={block.data} />);
+            break;
             
         default:
             console.log(`Could not render ${block.name} at index ${index} in the component tree.`);
