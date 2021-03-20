@@ -9,6 +9,7 @@ import access_reducer from './access_reducer.js';
 import menu_reducer from './menu_reducer.js';
 import footer_reducer from './footer_reducer.js';
 import settings_reducer from './settings_reducer.js';
+import components_reducer from './components_reducer.js';
 
 const allReducers = combineReducers({
     settings: settings_reducer,
@@ -19,6 +20,7 @@ const allReducers = combineReducers({
     toast: toast_reducer,
     menu: menu_reducer,
     footerMenu: footer_reducer,
+    components: components_reducer
 });
 
 export default allReducers;

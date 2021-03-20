@@ -1,7 +1,9 @@
+import * as S from '../../theme';
+
 export default function Blank() {
     return (
-        <div>
-            HTML CSS
-        </div>
+        <S.Frame>
+            This is a default Block
+        </S.Frame>
     )
 }

@@ -3,15 +3,17 @@ import { updateToastData } from '../../redux/actions';
 import * as S from '../../theme';
 import Blocks from '../Blocks/Blocks.jsx';
 
-export default function Add() {
+export default function Add(props) {
+    // ============= //
     // === STATE === //
+    // ============= //
     const dispatch = useDispatch();
 
     // ================= //
     // === FUNCTIONS === //
     // ================= //
     const addBlockHandler = () => {
-        dispatch(updateToastData(<Blocks />));
+        dispatch(updateToastData(<Blocks buildBlocks={props.buildBlocks} />));
     };
 
     // ============== //

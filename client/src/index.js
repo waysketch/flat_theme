@@ -8,8 +8,14 @@ import {Provider} from 'react-redux';
 import Theme from './theme/Theme.jsx';
 import { Reset } from './theme/styled/reset.style.js';
 
+// ============= //
+// === STORE === //
+// ============= //
 const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+// ================ //
+// === THE SITE === //
+// ================ //
 ReactDOM.render(
   <Provider store={store}>
     <Theme>

@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import * as S from '../../theme';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateToastData } from '../../redux/actions';
 
 export default function EditPage() {
+    // ============= //
     // === STATE === //
+    // ============= //
     const dispatch = useDispatch();
     const [pageName, updatePageName] = useState("");
     const [pageUrl, updatePageUrl] = useState("");
     const [hideFooter, updateHideFooter] = useState(false);
     const [navOptions, updateNavOptions] = useState([]);
+    const components = useSelector(state => state.components)
 
+    // ================= //
+    // === FUNCTIONS === //
+    // ================= //
     const submitPageHandler = () => {
         // === ROUTE === //
         const url = "/api/pages/create";
@@ -27,26 +33,6 @@ export default function EditPage() {
                     name: "Header",
                     data: {
                         title: `${pageName} Page`
-                    }
-                },
-                
-                {
-                    name: "Deck",
-                    data: {
-                        cards: [
-                            {
-                                title: "Card One",
-                                body: "hello world"
-                            },
-                            {
-                                title: "Card Two",
-                                body: "just type anything here"
-                            },
-                            {
-                                title: "Flat Card",
-                                body: "Ok no more typing"
-                            }
-                        ]
                     }
                 }
             ],
@@ -71,7 +57,20 @@ export default function EditPage() {
             updatePageName("");
             updatePageUrl("");
         });
-    }
+    };
+
+    const saveButtonHandler = () => {
+        axios.post('/api/pages/update/blocks', {
+            blocks: components,
+            pathToPage: window.location.pathname,
+        })
+        .then( apiReturn => {
+            console.log(apiReturn.data.msg);
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    };
 
     // ============== //
     // === RETURN === //
@@ -135,13 +134,17 @@ export default function EditPage() {
                     <h4>Hide Footer?</h4>
                     <p>[ ]</p>
                     
+                    <S.SolidButton onClick={saveButtonHandler}>
+                        SAVE
+                    </S.SolidButton>
+
                     <S.SolidButton
                     background_color={props => props.theme.palette.darkRed}
                     hover_background_color={props => props.theme.palette.red}
                     onClick={() => {updateToastData(<p>Feature Not Added Yet</p>)}}
-                >
-                    Delete Page
-                </S.SolidButton>
+                    >
+                        Delete Page
+                    </S.SolidButton>
                 </S.SubMenu>
             </S.Frame>
 

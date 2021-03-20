@@ -8,3 +8,4 @@ export * from './access_actions';
 export * from './menu_actions';
 export * from './footer_actions';
 export * from './settings_actions';
+export * from './components_actions';

@@ -61,6 +61,9 @@ router.route("/create").post(authenticateUser, (req, res) => {
     _db
         .create(cleanedPageData)
         .then(dbModel => {
+
+            //TODO update sitemap and robots.txt
+
             res.json(dbModel);
         })
         .catch(error => {
@@ -69,10 +72,38 @@ router.route("/create").post(authenticateUser, (req, res) => {
         });
 });
 
+// ================================ //
+// === UPDATE COMPONENTS/BLOCKS === //
+// ================================ //
+router.route("/update/blocks").post(authenticateUser, ( req , res ) => {
+
+    const { blocks, pathToPage } = req.body;
+
+    console.log(blocks);
+
+    if (!blocks) { res.json({msg: "Error, no blocks found."}); return; };
+    if (!pathToPage) { res.json({msg: "Unable to identify the page you are on. Please refresh the browser and try again."}); return; }
+
+    _db.updateOne({ route: pathToPage }, { $set: { components: blocks }})
+    .then( dbReturn => {
+
+        if (blocks === dbReturn.components) { res.json({ msg: "Nothing to update. Blocks did not change." }); return; };
+
+        // TODO dbReturn.components has an "undefined" tail. Not sure why.
+        // console.log(blocks);
+        // console.log(dbReturn.components);
+        res.json({ msg: "You SOB you did it!" });
+    })
+    .catch( err => {
+        res.json({ msg: "Error" });
+    });
+
+});
+
 // ================== //
 // === DELETE ALL === //
 // ================== //
-router.route("/nuke").get(authenticateUser,( _ , res) => {
+router.route("/nuke").get(authenticateUser,( _ , res ) => {
 
     // TODO: check key
 
