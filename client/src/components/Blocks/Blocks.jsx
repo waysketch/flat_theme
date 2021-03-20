@@ -1,5 +1,6 @@
 import { updateComponents, updateToastVisible } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { blockRegistry } from '../../pages/Page/registry.js';
 import * as S from '../../theme';
 
 export default function Blocks(props) {
@@ -8,7 +9,6 @@ export default function Blocks(props) {
     // ============= //
     const dispatch = useDispatch();
     const components = useSelector(state => state.components);
-    
     
     const buildABlockFactory = (blockName, blockData) => {
 
@@ -31,13 +31,14 @@ export default function Blocks(props) {
         <S.Frame>
             <h1>Block Options</h1>
             
-            <S.Button onClick={() => buildABlockFactory("Deck")}>
-                Add a Deck
-            </S.Button>
+            {
+                [...blockRegistry].map( (block, index) => {
+                    return <S.Button key={index} onClick={() => buildABlockFactory(block.title)}>
+                        Add a {block.title} Block
+                    </S.Button>
+                })
+            }
 
-            <S.Button onClick={() => buildABlockFactory("Blank")}>
-                Add A Default Block
-            </S.Button>
         </S.Frame>
     )
 }

@@ -29,9 +29,10 @@ export default function DeleteButton(props) {
                 props.action();
             };
 
-            // This is bad code but I'm leaving it in
-            // This deletes the index from the current component array and should probably be passed from somewhere else.
-            if (props.delete && props.index) {
+            // This is bad code but it works so I'm leaving it in.
+            // This deletes the index from the current component array and should probably be passed from somewhere else as the yes action.
+            // If you're feeling sexy go ahead and change it in your fork.
+            if (props.delete && props.index > -1) {
                 deleteComponent(props.index);
             };
 
@@ -84,7 +85,5 @@ export default function DeleteButton(props) {
     // ================= //
     // === COMPONENT === //
     // ================= //
-    return (
-        <S.DeleteButton onClick={deleteButtonHandler} >{S.svg.trash}</S.DeleteButton>
-    )
+    return <S.DeleteButton onClick={deleteButtonHandler} >{S.svg.trash}</S.DeleteButton>
 };

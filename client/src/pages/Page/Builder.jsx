@@ -1,5 +1,10 @@
 import loadable from '@loadable/component';
 
+// ================= //
+// === IMPORTANT ============================================================================================================== //
+// === Be sure to add your component to the registy.js file or it will not display in the popup when adding new components. === //
+// ============================================================================================================================ //
+
 export const Builder = (block, index, addBlockToThisArray) => {
     switch (block.name) {
 
